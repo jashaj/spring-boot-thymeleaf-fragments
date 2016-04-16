@@ -1,4 +1,20 @@
 <!DOCTYPE html>
+<!--
+    Copyright 2016 Jasha Joachimsthal
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+  -->
+
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
@@ -7,20 +23,9 @@
 <body>
 <h1>Hello, template</h1>
 
-<!-- start slipsum code -->
+<p>This is an example project to support rendering both full pages and partial pages</p>
 
-<p>Now that there is the Tec-9, a crappy spray gun from South Miami. This gun is advertised as the most popular gun in
-    American crime. Do you believe that shit? It actually says that in the little book that comes with it: the most
-    popular gun in American crime. Like they're actually proud of that shit. </p>
-
-<a th:href="@{/cities}" href="cities.html">Show cities</a>
-
-<!-- please do not remove this line -->
-
-<div style="display:none;">
-    <a href="http://slipsum.com">lorem ipsum</a></div>
-
-<!-- end slipsum code -->
+<p><a th:href="@{/cities}" href="cities.html">Show cities</a></p>
 
 </body>
 </html>
