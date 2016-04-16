@@ -44,6 +44,7 @@ public class CityController {
         return "cities";
     }
 
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String cityPage(@PathVariable("id") String id, ModelMap modelMap) {
         Optional<City> city = cityDao.find(id);
@@ -54,12 +55,16 @@ public class CityController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = {"X-Requested-With=XMLHttpRequest"})
     public String cityFragment(@PathVariable("id") String id, ModelMap modelMap) {
         LOG.info("Requesting city {} via XHR", id);
+
+        // Let Thymeleaf only return the th:fragment="form" within the view
         return cityPage(id, modelMap) + " :: form";
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     public RedirectView city(@PathVariable("id") String id,
                              @ModelAttribute("city") City city) {
+        LOG.info("Updating city {}", id);
+
         cityDao.update(city);
         return new RedirectView("");
     }
