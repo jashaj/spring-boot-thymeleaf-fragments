@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${city.name}">Title</title>
+</head>
+<body>
+<nav>
+    <a href="cities.html" th:href="@{/cities}">Back to cities</a>
+</nav>
+<article>
+    <h1 th:text="${city.name}">Title</h1>
+    <form th:action="@{|/cities/${city.id}|}" th:object="${city}" method="post">
+        <div>
+            <label th:for="*{name}">Name</label>
+            <input th:field="*{name}" type="text"/>
+        </div>
+        <div>
+            <label th:for="*{foundedIn}">Founded in</label>
+            <input th:field="*{foundedIn}" type="number" step="1"/>
+        </div>
+        <div>
+            <label th:for="*{population}">Founded in</label>
+            <input th:field="*{population}" type="number" step="1" min="0"/>
+        </div>
+        <div>
+            <input type="hidden" th:field="*{id}"/>
+            <input type="submit" value="Update"/>
+        </div>
+    </form>
+</article>
+
+</body>
+</html>

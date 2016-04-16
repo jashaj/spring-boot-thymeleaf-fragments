@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Cities</title>
+</head>
+<body>
+<article>
+    <h1>Cities</h1>
+    <ul>
+        <li th:each="city : ${cities}"><a th:href="@{|/cities/${city.id}|}" th:text="${city.name}">My city</a></li>
+    </ul>
+</article>
+
+</body>
+</html>
