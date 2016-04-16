@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <!--/*
     Copyright 2016 Jasha Joachimsthal
 
@@ -15,20 +14,6 @@
     limitations under the License.
   */-->
 
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='Cities'">
-<th:block th:include="htmlhead" th:attr="title='Cities'"/>
-<body>
-<th:block th:replace="navigation"/>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <th:block th:include="pagetitle"/>
-            <ul>
-                <li th:each="city : ${cities}"><a th:href="@{|/cities/${city.id}|}" th:text="${city.name}">My city</a>
-                </li>
-            </ul>
-        </div>
-    </div>
+<div class="page-header" xmlns:th="http://www.thymeleaf.org">
+    <h1 th:text="${title}">Title</h1>
 </div>
-</body>
-</html>

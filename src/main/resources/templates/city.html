@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!--
+<!--/*
     Copyright 2016 Jasha Joachimsthal
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,37 +13,38 @@
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-  -->
+  */-->
 
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <title th:text="${city.name}">Title</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title=${city.name}">
+<th:block th:include="htmlhead"/>
 <body>
-<nav>
-    <a href="cities.html" th:href="@{/cities}">Back to cities</a>
-</nav>
-<article>
-    <h1 th:text="${city.name}">Title</h1>
-    <form th:action="@{|/cities/${city.id}|}" th:object="${city}" method="post">
-        <div>
-            <label th:for="*{name}">Name</label>
-            <input th:field="*{name}" type="text"/>
-        </div>
-        <div>
-            <label th:for="*{foundedIn}">Founded in</label>
-            <input th:field="*{foundedIn}" type="number" step="1"/>
-        </div>
-        <div>
-            <label th:for="*{population}">Population</label>
-            <input th:field="*{population}" type="number" step="1" min="0"/>
-        </div>
-        <div>
-            <input type="submit" value="Update"/>
-        </div>
-    </form>
-</article>
+<th:block th:replace="navigation"/>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
 
+            <th:block th:include="pagetitle"/>
+
+            <form th:action="@{|/cities/${city.id}|}" th:object="${city}" method="post" class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" th:for="*{name}">Name</label>
+                    <input class="form-control" th:field="*{name}" type="text"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" th:for="*{foundedIn}">Founded in</label>
+                    <input class="form-control" th:field="*{foundedIn}" type="number" step="1"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" th:for="*{population}">Population</label>
+                    <input class="form-control" th:field="*{population}" type="number" step="1" min="0"/>
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-primary" type="submit" value="Update"/>
+                    <a class="btn btn-default" th:href="@{/cities}">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!--
+<!--/*
     Copyright 2016 Jasha Joachimsthal
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,19 +13,21 @@
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-  -->
+  */-->
 
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Hello, template</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='Hello, template'">
+<th:block th:include="htmlhead"/>
 <body>
-<h1>Hello, template</h1>
+<th:block th:replace="navigation"/>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <th:block th:include="pagetitle"/>
+            <p>This is an example project to support rendering both full pages and partial pages</p>
 
-<p>This is an example project to support rendering both full pages and partial pages</p>
-
-<p><a th:href="@{/cities}" href="cities.html">Show cities</a></p>
-
+            <p><a th:href="@{/cities}" href="cities.html">Show cities</a></p>
+        </div>
+    </div>
+</div>
 </body>
 </html>

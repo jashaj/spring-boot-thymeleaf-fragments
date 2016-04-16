@@ -58,4 +58,9 @@ public class CityController {
         return new RedirectView("");
     }
 
+    @ModelAttribute("section")
+    public String section() {
+        return "cities";
+    }
+
 }
