@@ -23,12 +23,31 @@
     <div class="row">
         <div class="col-md-12">
             <th:block th:include="pagetitle"/>
-            <ul>
-                <li th:each="city : ${cities}"><a th:href="@{|/cities/${city.id}|}" th:text="${city.name}">My city</a>
+            <ul id="cities">
+                <li th:each="city : ${cities}" th:id="|city_${city.id}|">
+                    <a th:href="@{|/cities/${city.id}|}" th:text="${city.name}" class="city-link">My city</a>
                 </li>
             </ul>
         </div>
     </div>
 </div>
+<div class="modal fade" tabindex="-1" role="dialog" id="cityModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Edit city</h4>
+            </div>
+            <div class="modal-body">
+                <p>One fine body...</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/script.js}"></script>
 </body>
 </html>
