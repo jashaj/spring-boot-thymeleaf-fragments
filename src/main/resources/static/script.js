@@ -33,8 +33,24 @@
     });
 
     // Closes the modal when the user clicks the cancel button instead of following its link
-    $cityModal.on('click', '.btn-cancel', function(e) {
+    $cityModal.on('click', '.btn-cancel', function (e) {
         e.preventDefault();
         $cityModal.modal('hide');
     });
+
+    // For demo: add a button to remove the modal magic
+    var $removeMagicBtn = $('<button/>')
+        .addClass('btn btn-default')
+        .attr('type', 'button')
+        .text('Don\'t load cities in a modal')
+        .on('click', function () {
+            $(this).remove();
+            $('.city-link')
+                .removeAttr('role')
+                .removeAttr('data-toggle')
+                .removeAttr('data-target')
+                .removeAttr('data-remote');
+        });
+    $('#cities').after($removeMagicBtn);
+
 })();
