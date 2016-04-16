@@ -14,7 +14,7 @@
  *   limitations under the License.
  */
 
-package eu.jasha;
+package eu.jasha.demo.sbtfragments;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
@@ -50,7 +50,7 @@ public class CityDao {
     }
 
     public List<City> getAll() {
-        ArrayList<City> cities = new ArrayList<>(CityDao.cities);
+        List<City> cities = new ArrayList<>(CityDao.cities);
         cities.sort((o1, o2) -> o1.getName().compareTo(o2.getName()));
         return cities;
     }

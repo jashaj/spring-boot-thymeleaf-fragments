@@ -14,7 +14,7 @@
  *   limitations under the License.
  */
 
-package eu.jasha;
+package eu.jasha.demo.sbtfragments;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;

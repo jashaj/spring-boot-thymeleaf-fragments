@@ -14,7 +14,7 @@
  *   limitations under the License.
  */
 
-package eu.jasha;
+package eu.jasha.demo.sbtfragments;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;

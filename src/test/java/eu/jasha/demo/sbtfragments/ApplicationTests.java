@@ -14,15 +14,22 @@
  *   limitations under the License.
  */
 
-package eu.jasha;
+package eu.jasha.demo.sbtfragments;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
-@SpringBootApplication
-public class SpringBootThymeleafFragmentsApplication {
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(classes = Application.class)
+@WebAppConfiguration
+public class ApplicationTests {
 
-    public static void main(String[] args) {
-        SpringApplication.run(SpringBootThymeleafFragmentsApplication.class, args);
+    @Test
+    public void contextLoads() {
+        // hurrah, it loads
     }
+
 }
