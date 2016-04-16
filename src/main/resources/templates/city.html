@@ -25,24 +25,32 @@
 
             <th:block th:include="pagetitle"/>
 
-            <form th:action="@{|/cities/${city.id}|}" th:object="${city}" method="post" class="col-md-6">
-                <div class="form-group">
-                    <label class="control-label" th:for="*{name}">Name</label>
-                    <input class="form-control" th:field="*{name}" type="text"/>
+            <div class="row">
+                <div class="col-md-6">
+
+                    <!--/* only th:fragment form is returned for an XMLHttpRequest */-->
+                    <th:block th:fragment="form">
+                        <form th:action="@{|/cities/${city.id}|}" th:object="${city}" method="post">
+                            <div class="form-group">
+                                <label class="control-label" th:for="*{name}">Name</label>
+                                <input class="form-control" th:field="*{name}" type="text"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" th:for="*{foundedIn}">Founded in</label>
+                                <input class="form-control" th:field="*{foundedIn}" type="number" step="1"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" th:for="*{population}">Population</label>
+                                <input class="form-control" th:field="*{population}" type="number" step="1" min="0"/>
+                            </div>
+                            <div class="form-group submit-cancel">
+                                <input class="btn btn-primary" type="submit" value="Save changes"/>
+                                <a class="btn btn-default btn-cancel" th:href="@{/cities}">Cancel</a>
+                            </div>
+                        </form>
+                    </th:block>
                 </div>
-                <div class="form-group">
-                    <label class="control-label" th:for="*{foundedIn}">Founded in</label>
-                    <input class="form-control" th:field="*{foundedIn}" type="number" step="1"/>
-                </div>
-                <div class="form-group">
-                    <label class="control-label" th:for="*{population}">Population</label>
-                    <input class="form-control" th:field="*{population}" type="number" step="1" min="0"/>
-                </div>
-                <div class="form-group">
-                    <input class="btn btn-primary" type="submit" value="Update"/>
-                    <a class="btn btn-default" th:href="@{/cities}">Cancel</a>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>

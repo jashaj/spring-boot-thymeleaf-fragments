@@ -16,6 +16,8 @@
 
 package eu.jasha.demo.sbtfragments;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -31,6 +33,8 @@ import java.util.Optional;
 @RequestMapping("cities")
 public class CityController {
 
+    private static final Logger LOG = LoggerFactory.getLogger(CityController.class);
+
     @Autowired
     private CityDao cityDao;
 
@@ -41,14 +45,16 @@ public class CityController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String city(@PathVariable("id") String id, ModelMap modelMap) {
+    public String cityPage(@PathVariable("id") String id, ModelMap modelMap) {
         Optional<City> city = cityDao.find(id);
-        if (city.isPresent()) {
-            modelMap.addAttribute("city", city.get());
-        } else {
-            throw new RuntimeException("No city found for id " + id);
-        }
+        modelMap.addAttribute("city", city.get());
         return "city";
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = {"X-Requested-With=XMLHttpRequest"})
+    public String cityFragment(@PathVariable("id") String id, ModelMap modelMap) {
+        LOG.info("Requesting city {} via XHR", id);
+        return cityPage(id, modelMap) + " :: form";
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)

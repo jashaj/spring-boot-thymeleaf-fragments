@@ -14,9 +14,27 @@
  *   limitations under the License.
  */
 
-(function() {
+(function () {
+    // change all city-link links into modal triggers, but don't let Bootstrap do its magic loading the content into the
+    // modal-content div because it messes up the UI.
     $('.city-link')
         .attr('role', 'button')
         .attr('data-toggle', 'modal')
-        .attr('data-target', '#cityModal');
+        .attr('data-target', '#cityModal')
+        .attr('data-remote', 'false');
+
+    // loads content into .modal-body when the modal is shown
+    var $cityModal = $('#cityModal');
+    $cityModal.on('show.bs.modal', function (e) {
+        var $modal = $(this);
+        var trigger = e.relatedTarget;
+        var location = trigger.getAttribute("href");
+        $modal.find('.modal-body').load(location);
+    });
+
+    // Closes the modal when the user clicks the cancel button instead of following its link
+    $cityModal.on('click', '.btn-cancel', function(e) {
+        e.preventDefault();
+        $cityModal.modal('hide');
+    });
 })();
