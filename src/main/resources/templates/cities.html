@@ -15,36 +15,32 @@
     limitations under the License.
   */-->
 
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title='Cities'">
-<th:block th:include="htmlhead" th:attr="title='Cities'"/>
-<body>
-<th:block th:replace="navigation"/>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <th:block th:include="pagetitle"/>
-            <ul id="cities">
-                <li th:each="city : ${cities}" th:id="|city_${city.id}|">
-                    <a th:href="@{|/cities/${city.id}|}" th:text="${city.name}" class="city-link">My city</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
-<div class="modal fade" tabindex="-1" role="dialog" id="cityModal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Edit city</h4>
-            </div>
-            <div class="modal-body">
-                <p>One fine body...</p>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout"
+      th:with="title='Cities'">
+<th:block layout:fragment="content">
+    <ul id="cities">
+        <li th:each="city : ${cities}" th:id="|city_${city.id}|">
+            <a th:href="@{|/cities/${city.id}|}" th:text="${city.name}" class="city-link">My city</a>
+        </li>
+    </ul>
+</th:block>
+<th:block layout:fragment="body_end">
+    <div class="modal fade" tabindex="-1" role="dialog" id="cityModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Edit city</h4>
+                </div>
+                <div class="modal-body">
+                    <p>One fine body...</p>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<script th:src="@{/script.js}"></script>
-</body>
+    <script th:src="@{/script.js}"></script>
+</th:block>
 </html>

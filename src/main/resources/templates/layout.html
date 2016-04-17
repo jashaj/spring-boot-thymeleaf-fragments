@@ -14,14 +14,20 @@
     See the License for the specific language governing permissions and
     limitations under the License.
   */-->
-
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout"
-      th:with="title='Hello, template'">
-<th:block layout:fragment="content">
-    <p>This is an example project to support rendering both full pages and partial pages</p>
-
-    <p><a th:href="@{/cities}" href="cities.html">Show cities</a></p>
-</th:block>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<th:block layout:include="htmlhead"/>
+<body>
+<th:block layout:replace="navigation"/>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <th:block layout:include="pagetitle"/>
+            <th:block layout:fragment="content"/>
+        </div>
+    </div>
+</div>
+<th:block layout:fragment="body_end"/>
+</body>
 </html>

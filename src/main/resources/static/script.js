@@ -42,7 +42,7 @@
     var $removeMagicBtn = $('<button/>')
         .addClass('btn btn-default')
         .attr('type', 'button')
-        .text('Don\'t load cities in a modal')
+        .text('Show cities in a new page')
         .on('click', function () {
             $(this).remove();
             $('.city-link')
