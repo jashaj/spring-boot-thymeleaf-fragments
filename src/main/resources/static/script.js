@@ -20,46 +20,60 @@
         $('.inline-editable').editable();
     }
 
-    // change all city-link links into modal triggers, but don't let Bootstrap do its magic loading the content into the
-    // modal-content div because it messes up the UI.
-    $('.city-link')
-        .attr('role', 'button')
-        .attr('data-toggle', 'modal')
-        .attr('data-target', '#cityModal')
-        .attr('data-remote', 'false')
-        .addClass('btn btn-default');
-
-    // loads content into .modal-body when the modal is shown
-    var $cityModal = $('#cityModal');
-    $cityModal.on('show.bs.modal', function (e) {
-        var $modal = $(this);
-        var trigger = e.relatedTarget;
-        var location = trigger.getAttribute("href");
-        $modal.find('.modal-body').load(location, initInlineEditable);
-    });
-
-    // Closes the modal when the user clicks the cancel button instead of following its link
-    $cityModal.on('click', '.btn-cancel', function (e) {
-        e.preventDefault();
-        $cityModal.modal('hide');
-    });
-
-    // For demo: add a button to remove the modal magic
-    var $removeMagicBtn = $('<button/>')
-        .addClass('btn btn-default')
-        .attr('type', 'button')
-        .text('Remove all magic')
-        .on('click', function () {
-            $(this).remove();
-            $('.inline-editable').editable('destroy');
-            $('.city-link')
-                .removeAttr('role')
-                .removeAttr('data-toggle')
-                .removeAttr('data-target')
-                .removeAttr('data-remote')
-                .removeClass('btn btn-default');
+    function initDraggableModals() {
+        $('.modal-dialog').draggable({
+            handle: ".modal-header"
         });
-    $('#cities').after($removeMagicBtn);
+    }
 
+    function openEditFormInModal() {
+        // change all city-link links into modal triggers, but don't let Bootstrap do its magic loading the content into the
+        // modal-content div because it messes up the UI.
+        $('.city-link')
+            .attr('role', 'button')
+            .attr('data-toggle', 'modal')
+            .attr('data-target', '#cityModal')
+            .attr('data-remote', 'false')
+            .addClass('btn btn-default');
+
+        // loads content into .modal-body when the modal is shown
+        var $cityModal = $('#cityModal');
+        $cityModal.on('show.bs.modal', function (e) {
+            var $modal = $(this);
+            var trigger = e.relatedTarget;
+            var location = trigger.getAttribute("href");
+            $modal.find('.modal-body').load(location, initInlineEditable);
+        });
+
+        // Closes the modal when the user clicks the cancel button instead of following its link
+        $cityModal.on('click', '.btn-cancel', function (e) {
+            e.preventDefault();
+            $cityModal.modal('hide');
+        });
+    }
+
+    function addButtonToRemoveEnancedUx() {
+        // For demo: add a button to remove the modal magic
+        var $removeMagicBtn = $('<button/>')
+            .addClass('btn btn-default')
+            .attr('type', 'button')
+            .text('Remove all magic')
+            .on('click', function () {
+                $(this).remove();
+                $('.inline-editable').editable('destroy');
+                $('.city-link')
+                    .removeAttr('role')
+                    .removeAttr('data-toggle')
+                    .removeAttr('data-target')
+                    .removeAttr('data-remote')
+                    .removeClass('btn btn-default');
+            });
+        $('#cities').after($removeMagicBtn);
+    }
+
+
+    openEditFormInModal();
+    initDraggableModals();
     initInlineEditable();
+    addButtonToRemoveEnancedUx();
 })();
