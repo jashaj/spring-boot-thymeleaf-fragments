@@ -27,6 +27,8 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.NO_CONTENT;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
 @RequestMapping("cities")
@@ -59,22 +61,24 @@ public class CityController {
         return VIEW_CITIES;
     }
 
-    @RequestMapping(value = PATH_ID, method = RequestMethod.GET)
-    public String cityPage(@PathVariable(ID) String id, ModelMap modelMap) {
+    @RequestMapping(value = PATH_ID, method = GET)
+    public String cityPage(@PathVariable(ID) String id,
+                           ModelMap modelMap) {
         Optional<City> city = cityDao.find(id);
         modelMap.addAttribute(MODEL_ATTRIBUTE_CITY, city.get());
         return VIEW_CITY_FORM;
     }
 
-    @RequestMapping(value = PATH_ID, method = RequestMethod.GET, headers = {X_REQUESTED_WITH_XMLHTTP_REQUEST})
-    public String cityFragment(@PathVariable(ID) String id, ModelMap modelMap) {
+    @RequestMapping(value = PATH_ID, method = GET, headers = {X_REQUESTED_WITH_XMLHTTP_REQUEST})
+    public String cityFragment(@PathVariable(ID) String id,
+                               ModelMap modelMap) {
         LOG.info("Requesting city {} via XHR", id);
 
         // Let Thymeleaf only return the th:fragment="form" within the view
         return cityPage(id, modelMap) + FRAGMENT_FORM;
     }
 
-    @RequestMapping(value = PATH_ID, method = RequestMethod.POST)
+    @RequestMapping(value = PATH_ID, method = POST)
     public RedirectView updateCity(@PathVariable(ID) String id,
                                    @ModelAttribute("city") City city) {
         LOG.info("Updating city {}", id);
@@ -83,12 +87,11 @@ public class CityController {
         return new RedirectView("");
     }
 
-    @RequestMapping(value = PATH_ID, method = RequestMethod.POST,
-            headers = {X_REQUESTED_WITH_XMLHTTP_REQUEST}, params = {"pk=1"})
+    @RequestMapping(method = POST, headers = {X_REQUESTED_WITH_XMLHTTP_REQUEST}, params = {"pk"})
     @ResponseStatus(code = NO_CONTENT)
-    public void partialUpdateCity(@PathVariable(ID) String id,
+    public void partialUpdateCity(@RequestParam("pk") String id,
                                   @RequestParam("name") String parameterName,
-                                  @RequestParam String value) {
+                                  @RequestParam("value") String value) {
         City city = cityDao.find(id).get();
         if ("name".equalsIgnoreCase(parameterName)) {
             city.setName(value);

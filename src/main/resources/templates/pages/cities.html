@@ -32,21 +32,21 @@
         <tbody>
         <tr th:each="city : ${cities}" th:id="|city_${city.id}|">
             <th scope="row">
-                <span id="name" data-type="text" data-pk="1" data-title="Name"
-                      th:attr="data-url=@{|/cities/${city.id}|}, data-value=${city.name}"
+                <span id="name" data-type="text" data-title="Name"
+                      th:attr="data-url=@{/cities}, data-pk=${city.id}, data-value=${city.name}"
                       class="inline-editable"
                       th:text="${city.name}">City name</span>
             </th>
             <td class="text-right">
-                <span id="foundedIn" data-type="number" data-pk="1" data-title="Founded in"
-                      th:attr="data-url=@{|/cities/${city.id}|}, data-value=${city.foundedIn}"
+                <span id="foundedIn" data-type="number" data-title="Founded in"
+                      th:attr="data-url=@{/cities}, data-pk=${city.id}, data-value=${city.foundedIn}"
                       data-clear="false"
                       class="inline-editable"
                       th:text="${city.foundedIn} lt 0 ? ${(city.foundedIn * -1) + ' BC'}: ${city.foundedIn + ' AD'}">Founded in</span>
             </td>
             <td class="text-right">
-                <span id="population" data-type="number" data-pk="1" data-title="Population"
-                      th:attr="data-url=@{|/cities/${city.id}|}, data-value=${city.population}"
+                <span id="population" data-type="number" data-title="Population"
+                      th:attr="data-url=@{/cities}, data-pk=${city.id}, data-value=${city.population}"
                       data-clear="false"
                       class="inline-editable"
                       th:text="${#numbers.formatInteger(city.population, 1, 'DEFAULT')}">Population</span>
