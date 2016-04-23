@@ -52,7 +52,7 @@
         });
     }
 
-    function addButtonToRemoveEnancedUx() {
+    function addButtonToRemoveEnhancedUx() {
         // For demo: add a button to remove the modal magic
         var $removeMagicBtn = $('<button/>')
             .addClass('btn btn-default')
@@ -75,5 +75,5 @@
     openEditFormInModal();
     initDraggableModals();
     initInlineEditable();
-    addButtonToRemoveEnancedUx();
+    addButtonToRemoveEnhancedUx();
 })();
