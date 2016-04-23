@@ -16,13 +16,25 @@
 
 package eu.jasha.demo.sbtfragments;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.junit.Before;
+import org.junit.Test;
 
-@SpringBootApplication
-public class Application {
+import static eu.jasha.demo.sbtfragments.HomeController.VIEW_INDEX;
+import static org.assertj.core.api.Assertions.assertThat;
 
-    public static void main(String... args) {
-        SpringApplication.run(Application.class, args);
+public class HomeControllerTest {
+
+    private HomeController controller;
+
+    @Before
+    public void setup() throws Exception {
+        controller = new HomeController();
+    }
+
+    @Test
+    public void should_show_index() throws Exception {
+        String home = controller.getHome();
+
+        assertThat(home).isEqualTo(VIEW_INDEX);
     }
 }

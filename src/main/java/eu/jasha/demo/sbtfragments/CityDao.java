@@ -24,7 +24,7 @@ import java.util.*;
 @Repository
 public class CityDao {
 
-    private static Set<City> cities = new HashSet<>();
+    private Set<City> cities = new HashSet<>();
 
     public Optional<City> find(String id) {
         return cities
@@ -50,8 +50,8 @@ public class CityDao {
     }
 
     public List<City> getAll() {
-        List<City> cities = new ArrayList<>(CityDao.cities);
-        cities.sort((o1, o2) -> o1.getName().compareTo(o2.getName()));
-        return cities;
+        List<City> cityList = new ArrayList<>(cities);
+        cityList.sort((o1, o2) -> o1.getName().compareTo(o2.getName()));
+        return cityList;
     }
 }

@@ -35,43 +35,58 @@ public class CityController {
 
     private static final Logger LOG = LoggerFactory.getLogger(CityController.class);
 
-    @Autowired
+    static final String VIEW_CITIES = "pages/cities";
+    static final String VIEW_CITY_FORM = "pages/city-form";
+    static final String MODEL_ATTRIBUTE_CITIES = "cities";
+    static final String MODEL_ATTRIBUTE_CITY = "city";
+    static final String FRAGMENT_FORM = " :: form";
+    static final String SECTION_CITIES = "cities";
+
+    private static final String ID = "id";
+    private static final String PATH_ID = "/{id}";
+    private static final String X_REQUESTED_WITH_XMLHTTP_REQUEST = "X-Requested-With=XMLHttpRequest";
+
     private CityDao cityDao;
+
+    @Autowired
+    public CityController(CityDao cityDao) {
+        this.cityDao = cityDao;
+    }
 
     @RequestMapping
     public String overview(ModelMap modelMap) {
-        modelMap.addAttribute("cities", cityDao.getAll());
-        return "pages/cities";
+        modelMap.addAttribute(MODEL_ATTRIBUTE_CITIES, cityDao.getAll());
+        return VIEW_CITIES;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String cityPage(@PathVariable("id") String id, ModelMap modelMap) {
+    @RequestMapping(value = PATH_ID, method = RequestMethod.GET)
+    public String cityPage(@PathVariable(ID) String id, ModelMap modelMap) {
         Optional<City> city = cityDao.find(id);
-        modelMap.addAttribute("city", city.get());
-        return "pages/city-form";
+        modelMap.addAttribute(MODEL_ATTRIBUTE_CITY, city.get());
+        return VIEW_CITY_FORM;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = {"X-Requested-With=XMLHttpRequest"})
-    public String cityFragment(@PathVariable("id") String id, ModelMap modelMap) {
+    @RequestMapping(value = PATH_ID, method = RequestMethod.GET, headers = {X_REQUESTED_WITH_XMLHTTP_REQUEST})
+    public String cityFragment(@PathVariable(ID) String id, ModelMap modelMap) {
         LOG.info("Requesting city {} via XHR", id);
 
         // Let Thymeleaf only return the th:fragment="form" within the view
-        return cityPage(id, modelMap) + " :: form";
+        return cityPage(id, modelMap) + FRAGMENT_FORM;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
-    public RedirectView city(@PathVariable("id") String id,
-                             @ModelAttribute("city") City city) {
+    @RequestMapping(value = PATH_ID, method = RequestMethod.POST)
+    public RedirectView updateCity(@PathVariable(ID) String id,
+                                   @ModelAttribute("city") City city) {
         LOG.info("Updating city {}", id);
 
         cityDao.update(city);
         return new RedirectView("");
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.POST,
-            headers = {"X-Requested-With=XMLHttpRequest"}, params = {"pk=1"})
+    @RequestMapping(value = PATH_ID, method = RequestMethod.POST,
+            headers = {X_REQUESTED_WITH_XMLHTTP_REQUEST}, params = {"pk=1"})
     @ResponseStatus(code = NO_CONTENT)
-    public void partialUpdateCity(@PathVariable("id") String id,
+    public void partialUpdateCity(@PathVariable(ID) String id,
                                   @RequestParam("name") String parameterName,
                                   @RequestParam String value) {
         City city = cityDao.find(id).get();
@@ -81,6 +96,9 @@ public class CityController {
             city.setPopulation(Integer.parseInt(value));
         } else if ("foundedIn".equalsIgnoreCase(parameterName)) {
             city.setFoundedIn(Integer.parseInt(value));
+        } else {
+            LOG.warn("Invalid request for updating a city. Parameter name '{}', value '{}'", parameterName, value);
+            return;
         }
         cityDao.update(city);
     }
@@ -88,7 +106,7 @@ public class CityController {
 
     @ModelAttribute("section")
     public String section() {
-        return "cities";
+        return SECTION_CITIES;
     }
 
 }

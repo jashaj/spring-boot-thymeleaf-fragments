@@ -1,0 +1,79 @@
+/*
+ *   Copyright 2016 Jasha Joachimsthal
+ *
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ */
+
+package eu.jasha.demo.sbtfragments;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.List;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@SuppressWarnings("OptionalGetWithoutIsPresent")
+public class CityDaoTest {
+
+    private static final String CITY_ID = "sim";
+    private CityDao cityDao;
+    private City simCity;
+
+    @Before
+    public void setup() throws Exception {
+        cityDao = new CityDao();
+        simCity = new City(CITY_ID, "Sim City", 2016, 123_456);
+        cityDao.add(simCity);
+    }
+
+    @Test
+    public void should_return_empty_optional_for_unknown_id() throws Exception {
+        Optional<City> city = cityDao.find("unknown");
+
+        assertThat(city).isEmpty();
+    }
+
+    @Test
+    public void should_add_city() throws Exception {
+        Optional<City> city = cityDao.find(CITY_ID);
+
+        assertThat(city).isPresent();
+        assertThat(city.get()).isEqualTo(simCity);
+    }
+
+    @Test
+    public void should_update_city() throws Exception {
+        simCity.setFoundedIn(2015);
+        cityDao.update(simCity);
+
+        Optional<City> city = cityDao.find(CITY_ID);
+        assertThat(city.get().getFoundedIn()).isEqualTo(2015);
+    }
+
+    @Test
+    public void should_remove_city() throws Exception {
+        cityDao.remove(CITY_ID);
+
+        Optional<City> city = cityDao.find(CITY_ID);
+        assertThat(city).isEmpty();
+    }
+
+    @Test
+    public void should_find_all_cities() throws Exception {
+        List<City> cities = cityDao.getAll();
+
+        assertThat(cities).hasSize(1).containsExactly(simCity);
+    }
+}

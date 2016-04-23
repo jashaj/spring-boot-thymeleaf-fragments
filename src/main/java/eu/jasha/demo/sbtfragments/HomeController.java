@@ -22,8 +22,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeController {
 
+    static final String VIEW_INDEX = "pages/index";
+
     @RequestMapping(value = "")
     public String getHome() {
-        return "pages/index";
+        return VIEW_INDEX;
     }
 }
