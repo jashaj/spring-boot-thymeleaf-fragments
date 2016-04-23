@@ -24,6 +24,6 @@ public class HomeController {
 
     @RequestMapping(value = "")
     public String getHome() {
-        return "index";
+        return "pages/index";
     }
 }

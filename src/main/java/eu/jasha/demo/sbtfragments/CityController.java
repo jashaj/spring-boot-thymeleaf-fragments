@@ -41,7 +41,7 @@ public class CityController {
     @RequestMapping
     public String overview(ModelMap modelMap) {
         modelMap.addAttribute("cities", cityDao.getAll());
-        return "cities";
+        return "pages/cities";
     }
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")
@@ -49,7 +49,7 @@ public class CityController {
     public String cityPage(@PathVariable("id") String id, ModelMap modelMap) {
         Optional<City> city = cityDao.find(id);
         modelMap.addAttribute("city", city.get());
-        return "city";
+        return "pages/city-form";
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = {"X-Requested-With=XMLHttpRequest"})

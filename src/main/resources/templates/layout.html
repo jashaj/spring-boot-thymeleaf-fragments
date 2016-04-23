@@ -17,17 +17,18 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<th:block layout:include="htmlhead"/>
+<th:block layout:include="fragments/htmlhead"/>
 <body>
-<th:block layout:replace="navigation"/>
+<th:block layout:replace="fragments/navigation"/>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <th:block layout:include="pagetitle"/>
+            <th:block layout:include="fragments/pagetitle"/>
             <th:block layout:fragment="content"/>
         </div>
     </div>
 </div>
+<th:block layout:replace="fragments/body_scripts :: end"/>
 <th:block layout:fragment="body_end"/>
 </body>
 </html>
