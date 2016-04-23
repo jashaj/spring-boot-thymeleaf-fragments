@@ -26,7 +26,8 @@
         .attr('role', 'button')
         .attr('data-toggle', 'modal')
         .attr('data-target', '#cityModal')
-        .attr('data-remote', 'false');
+        .attr('data-remote', 'false')
+        .addClass('btn btn-default');
 
     // loads content into .modal-body when the modal is shown
     var $cityModal = $('#cityModal');
@@ -47,14 +48,16 @@
     var $removeMagicBtn = $('<button/>')
         .addClass('btn btn-default')
         .attr('type', 'button')
-        .text('Show cities in a new page')
+        .text('Remove all magic')
         .on('click', function () {
             $(this).remove();
+            $('.inline-editable').editable('destroy');
             $('.city-link')
                 .removeAttr('role')
                 .removeAttr('data-toggle')
                 .removeAttr('data-target')
-                .removeAttr('data-remote');
+                .removeAttr('data-remote')
+                .removeClass('btn btn-default');
         });
     $('#cities').after($removeMagicBtn);
 

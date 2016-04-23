@@ -33,3 +33,7 @@
 .btn + .btn {
     margin-left: 5px;
 }
+
+.editable-click {
+    cursor: pointer;
+}
