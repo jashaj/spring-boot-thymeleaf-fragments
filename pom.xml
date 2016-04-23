@@ -74,6 +74,12 @@
             <version>2.10.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>x-editable</artifactId>
+            <version>1.5.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>

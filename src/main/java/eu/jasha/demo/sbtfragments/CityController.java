@@ -21,16 +21,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Optional;
 
+import static org.springframework.http.HttpStatus.NO_CONTENT;
+
 @Controller
 @RequestMapping("cities")
+@SuppressWarnings("OptionalGetWithoutIsPresent")
 public class CityController {
 
     private static final Logger LOG = LoggerFactory.getLogger(CityController.class);
@@ -44,7 +44,6 @@ public class CityController {
         return "pages/cities";
     }
 
-    @SuppressWarnings("OptionalGetWithoutIsPresent")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String cityPage(@PathVariable("id") String id, ModelMap modelMap) {
         Optional<City> city = cityDao.find(id);
@@ -68,6 +67,24 @@ public class CityController {
         cityDao.update(city);
         return new RedirectView("");
     }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.POST,
+            headers = {"X-Requested-With=XMLHttpRequest"}, params = {"pk=1"})
+    @ResponseStatus(code = NO_CONTENT)
+    public void partialUpdateCity(@PathVariable("id") String id,
+                                  @RequestParam("name") String parameterName,
+                                  @RequestParam String value) {
+        City city = cityDao.find(id).get();
+        if ("name".equalsIgnoreCase(parameterName)) {
+            city.setName(value);
+        } else if ("population".equalsIgnoreCase(parameterName)) {
+            city.setPopulation(Integer.parseInt(value));
+        } else if ("foundedIn".equalsIgnoreCase(parameterName)) {
+            city.setFoundedIn(Integer.parseInt(value));
+        }
+        cityDao.update(city);
+    }
+
 
     @ModelAttribute("section")
     public String section() {

@@ -15,6 +15,11 @@
  */
 
 (function () {
+    function initInlineEditable() {
+        $.fn.editable.defaults.mode = 'inline';
+        $('.inline-editable').editable();
+    }
+
     // change all city-link links into modal triggers, but don't let Bootstrap do its magic loading the content into the
     // modal-content div because it messes up the UI.
     $('.city-link')
@@ -29,7 +34,7 @@
         var $modal = $(this);
         var trigger = e.relatedTarget;
         var location = trigger.getAttribute("href");
-        $modal.find('.modal-body').load(location);
+        $modal.find('.modal-body').load(location, initInlineEditable);
     });
 
     // Closes the modal when the user clicks the cancel button instead of following its link
@@ -53,4 +58,5 @@
         });
     $('#cities').after($removeMagicBtn);
 
+    initInlineEditable();
 })();

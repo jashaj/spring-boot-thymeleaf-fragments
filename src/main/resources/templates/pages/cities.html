@@ -20,11 +20,43 @@
       layout:decorator="layout"
       th:with="title='Cities'">
 <th:block layout:fragment="content">
-    <ul id="cities">
-        <li th:each="city : ${cities}" th:id="|city_${city.id}|">
-            <a th:href="@{|/cities/${city.id}|}" th:text="${city.name}" class="city-link">My city</a>
-        </li>
-    </ul>
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">City</th>
+            <th scope="col">Founded in</th>
+            <th scope="col">Population</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="city : ${cities}" th:id="|city_${city.id}|">
+            <th scope="row">
+                <span id="name" data-type="text" data-pk="1" data-title="Name"
+                      th:attr="data-url=@{|/cities/${city.id}|}, data-value=${city.name}"
+                      class="inline-editable"
+                      th:text="${city.name}">City name</span>
+            </th>
+            <td class="text-right">
+                <span id="foundedIn" data-type="number" data-pk="1" data-title="Founded in"
+                      th:attr="data-url=@{|/cities/${city.id}|}, data-value=${city.foundedIn}"
+                      data-clear="false"
+                      class="inline-editable"
+                      th:text="${city.foundedIn} lt 0 ? ${(city.foundedIn * -1) + ' BC'}: ${city.foundedIn + ' AD'}">Founded in</span>
+            </td>
+            <td class="text-right">
+                <span id="population" data-type="number" data-pk="1" data-title="Population"
+                      th:attr="data-url=@{|/cities/${city.id}|}, data-value=${city.population}"
+                      data-clear="false"
+                      class="inline-editable"
+                      th:text="${#numbers.formatInteger(city.population, 1, 'DEFAULT')}">Population</span>
+            </td>
+            <td><a th:href="@{|/cities/${city.id}|}"
+                   th:attr="aria-label=${'Edit ' + city.name}" class="btn btn-default city-link">Edit</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </th:block>
 <th:block layout:fragment="body_end">
     <div class="modal fade" tabindex="-1" role="dialog" id="cityModal">
@@ -41,6 +73,5 @@
             </div>
         </div>
     </div>
-    <script th:src="@{/script.js}"></script>
 </th:block>
 </html>
