@@ -21,7 +21,7 @@
     text-align: right;
   }
 
-  .btn-primary {
+  .btn:not(.btn-cancel) {
     float: right;
     margin-left: 5px;
   }
@@ -38,4 +38,8 @@
 
 .editable-click {
   cursor: pointer;
+}
+
+span.control-label {
+  font-weight: 600;
 }

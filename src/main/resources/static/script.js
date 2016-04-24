@@ -42,6 +42,7 @@
             var $modal = $(this);
             var trigger = e.relatedTarget;
             var location = trigger.getAttribute("href");
+            $modal.find('.modal-title').text(trigger.innerText);
             $modal.find('.modal-body').load(location, initInlineEditable);
         });
 

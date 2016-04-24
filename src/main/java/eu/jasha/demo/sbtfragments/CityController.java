@@ -39,6 +39,7 @@ public class CityController {
 
     static final String VIEW_CITIES = "pages/cities";
     static final String VIEW_CITY_FORM = "pages/city-form";
+    static final String VIEW_CITY_DELETE = "pages/city-delete";
     static final String MODEL_ATTRIBUTE_CITIES = "cities";
     static final String MODEL_ATTRIBUTE_CITY = "city";
     static final String FRAGMENT_FORM = " :: form";
@@ -62,20 +63,20 @@ public class CityController {
     }
 
     @RequestMapping(value = PATH_ID, method = GET)
-    public String cityPage(@PathVariable(ID) String id,
-                           ModelMap modelMap) {
+    public String showUpdateCityPage(@PathVariable(ID) String id,
+                                     ModelMap modelMap) {
         Optional<City> city = cityDao.find(id);
         modelMap.addAttribute(MODEL_ATTRIBUTE_CITY, city.get());
         return VIEW_CITY_FORM;
     }
 
     @RequestMapping(value = PATH_ID, method = GET, headers = {X_REQUESTED_WITH_XMLHTTP_REQUEST})
-    public String cityFragment(@PathVariable(ID) String id,
-                               ModelMap modelMap) {
+    public String showUpdateCityForm(@PathVariable(ID) String id,
+                                     ModelMap modelMap) {
         LOG.info("Requesting city {} via XHR", id);
 
         // Let Thymeleaf only return the th:fragment="form" within the view
-        return cityPage(id, modelMap) + FRAGMENT_FORM;
+        return showUpdateCityPage(id, modelMap) + FRAGMENT_FORM;
     }
 
     @RequestMapping(value = PATH_ID, method = POST)
@@ -106,10 +107,33 @@ public class CityController {
         cityDao.update(city);
     }
 
+    @RequestMapping(value = PATH_ID + "/delete", method = GET)
+    public String showDeleteCityPage(@PathVariable(ID) String id,
+                                     ModelMap modelMap) {
+        Optional<City> city = cityDao.find(id);
+        modelMap.addAttribute(MODEL_ATTRIBUTE_CITY, city.get());
+
+        return VIEW_CITY_DELETE;
+    }
+
+    @RequestMapping(value = PATH_ID + "/delete", method = GET, headers = {X_REQUESTED_WITH_XMLHTTP_REQUEST})
+    public String showDeleteCityForm(@PathVariable(ID) String id,
+                                     ModelMap modelMap) {
+        LOG.info("Requesting delete city form {} via XHR", id);
+
+        return showDeleteCityPage(id, modelMap) + FRAGMENT_FORM;
+    }
+
+    @RequestMapping(value = PATH_ID + "/delete", method = POST)
+    public RedirectView deleteCity(@PathVariable(ID) String id) {
+        LOG.info("Deleting city {}", id);
+
+        cityDao.remove(id);
+        return new RedirectView("/cities");
+    }
 
     @ModelAttribute("section")
     public String section() {
         return SECTION_CITIES;
     }
-
 }

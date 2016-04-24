@@ -66,7 +66,7 @@ public class CityControllerTest {
     public void should_show_city_form_page() throws Exception {
         mockFindCity();
 
-        String view = controller.cityPage(CITY_ID, modelMap);
+        String view = controller.showUpdateCityPage(CITY_ID, modelMap);
 
         assertThat(view).isEqualTo(VIEW_CITY_FORM);
         assertThat(modelMap.get(MODEL_ATTRIBUTE_CITY)).isEqualTo(city);
@@ -76,7 +76,7 @@ public class CityControllerTest {
     public void should_show_city_form_fragment() throws Exception {
         mockFindCity();
 
-        String view = controller.cityFragment(CITY_ID, modelMap);
+        String view = controller.showUpdateCityForm(CITY_ID, modelMap);
 
         assertThat(view).isEqualTo(VIEW_CITY_FORM + FRAGMENT_FORM);
         assertThat(modelMap.get(MODEL_ATTRIBUTE_CITY)).isEqualTo(city);
@@ -132,6 +132,36 @@ public class CityControllerTest {
         controller.partialUpdateCity(CITY_ID, "unsupported", "My value");
 
         verify(cityDao, never()).update(city);
+    }
+
+    @Test
+    public void should_show_delete_city_page() throws Exception {
+        mockFindCity();
+
+        String view = controller.showDeleteCityPage(CITY_ID, modelMap);
+
+        assertThat(view).isEqualTo(VIEW_CITY_DELETE);
+        assertThat(modelMap.get(MODEL_ATTRIBUTE_CITY)).isEqualTo(city);
+    }
+
+    @Test
+    public void should_show_delete_city_form_fragment() throws Exception {
+        mockFindCity();
+
+        String view = controller.showDeleteCityForm(CITY_ID, modelMap);
+
+        assertThat(view).isEqualTo(VIEW_CITY_DELETE + FRAGMENT_FORM);
+        assertThat(modelMap.get(MODEL_ATTRIBUTE_CITY)).isEqualTo(city);
+    }
+
+    @Test
+    public void should_delete_city() throws Exception {
+        RedirectView view = controller.deleteCity(CITY_ID);
+
+        assertThat(view.isRedirectView()).isTrue();
+        assertThat(view.getUrl()).isEqualTo("/cities");
+
+        verify(cityDao).remove(CITY_ID);
     }
 
     @Test

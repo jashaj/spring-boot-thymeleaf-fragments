@@ -51,8 +51,11 @@
                       class="inline-editable"
                       th:text="${#numbers.formatInteger(city.population, 1, 'DEFAULT')}">Population</span>
             </td>
-            <td><a th:href="@{|/cities/${city.id}|}"
+            <td>
+                <a th:href="@{|/cities/${city.id}|}"
                    th:attr="aria-label=${'Edit ' + city.name}" class="city-link">Edit</a>
+                <a th:href="@{|/cities/${city.id}/delete|}"
+                   th:attr="aria-label=${'Delete ' + city.name}" class="city-link">Delete</a>
             </td>
         </tr>
         </tbody>
