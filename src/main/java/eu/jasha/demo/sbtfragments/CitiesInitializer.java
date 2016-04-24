@@ -16,23 +16,38 @@
 
 package eu.jasha.demo.sbtfragments;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+
+import java.io.InputStream;
+import java.util.List;
 
 @Configuration
 public class CitiesInitializer implements InitializingBean {
 
     @Autowired
     private CityDao cityDao;
+    @Autowired
+    private ObjectMapper objectMapper;
+    @Value("${sbtfragments.citiesFile}")
+    private String citiesFile;
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        cityDao.add(new City("1", "Utrecht", 48, 338_949));
-        cityDao.add(new City("2", "Amsterdam", 1000, 834_119));
-        cityDao.add(new City("3", "Rotterdam", 1260, 630_383));
-        cityDao.add(new City("4", "New York", 1624, 9_576_321));
-        cityDao.add(new City("5", "Nijmegen", -15, 172_063));
-        cityDao.add(new City("6", "Rome", -753, 2_863_322));
+        Resource resource = new ClassPathResource(citiesFile);
+        List<City> cities;
+        try (InputStream inputStream = resource.getInputStream()) {
+            cities = objectMapper.readValue(inputStream, new TypeReference<List<City>>() {
+            });
+        }
+        for (City city : cities) {
+            cityDao.add(city);
+        }
     }
 }
