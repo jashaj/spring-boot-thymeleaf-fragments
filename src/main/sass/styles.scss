@@ -32,6 +32,11 @@
   padding-right: 10px;
 }
 
+.city-link + .city-link {
+  display: inline-block;
+  margin-left: 10px;
+}
+
 .btn + .btn {
   margin-left: 5px;
 }
