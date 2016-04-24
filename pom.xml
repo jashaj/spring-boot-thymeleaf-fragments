@@ -44,6 +44,17 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
+
+        <assertj-core.version>3.4.1</assertj-core.version>
+        <commons-lang3.version>3.4</commons-lang3.version>
+        <jquery.version>2.2.3</jquery.version>
+        <jquery-ui.version>1.11.4</jquery-ui.version>
+        <junit.version>4.12</junit.version>
+        <patternfly.version>2.10.0</patternfly.version>
+        <x-editable.version>1.5.1</x-editable.version>
+
+        <libsass-maven-plugin.version>0.2.2-libsass_3.3.3</libsass-maven-plugin.version>
+        <minify-maven-plugin.version>1.7.4</minify-maven-plugin.version>
     </properties>
 
     <dependencies>
@@ -65,45 +76,100 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.4</version>
+            <version>${commons-lang3.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.webjars.bower</groupId>
             <artifactId>patternfly</artifactId>
-            <version>2.10.0</version>
+            <version>${patternfly.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>x-editable</artifactId>
-            <version>1.5.1</version>
+            <version>${x-editable.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>jquery</artifactId>
+            <version>${jquery.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.webjars.bower</groupId>
             <artifactId>jquery-ui</artifactId>
-            <version>1.11.4</version>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>${jquery-ui.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.4.1</version>
+            <version>${assertj-core.version}</version>
         </dependency>
     </dependencies>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.samaxes.maven</groupId>
+                    <artifactId>minify-maven-plugin</artifactId>
+                    <version>${minify-maven-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>default-minify</id>
+                            <configuration>
+                                <webappSourceDir>${project.basedir}/src/main/resources</webappSourceDir>
+                                <webappTargetDir>${project.build.directory}/classes</webappTargetDir>
+                                <jsSourceDir>static</jsSourceDir>
+                                <jsSourceIncludes>
+                                    <jsSourceInclude>**.js</jsSourceInclude>
+                                </jsSourceIncludes>
+                                <nosuffix>true</nosuffix>
+                            </configuration>
+                            <goals>
+                                <goal>minify</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>com.github.warmuuh</groupId>
+                    <artifactId>libsass-maven-plugin</artifactId>
+                    <version>${libsass-maven-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <phase>generate-resources</phase>
+                            <goals>
+                                <goal>compile</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <inputPath>${basedir}/src/main/sass/</inputPath>
+                        <outputPath>${project.build.directory}/classes/static</outputPath>
+                        <outputStyle>compressed</outputStyle>
+                        <generateSourceMap>false</generateSourceMap>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.samaxes.maven</groupId>
+                <artifactId>minify-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.github.warmuuh</groupId>
+                <artifactId>libsass-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

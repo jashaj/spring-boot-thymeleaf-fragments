@@ -14,7 +14,7 @@
  *   limitations under the License.
  */
 
-(function () {
+(function ($) {
     function initInlineEditable() {
         $.fn.editable.defaults.mode = 'inline';
         $('.inline-editable').editable();
@@ -54,7 +54,7 @@
 
     function addButtonToRemoveEnhancedUx() {
         // For demo: add a button to remove the modal magic
-        var $removeMagicBtn = $('<button/>')
+        var $removeMagicBtn = $('<button></button>')
             .addClass('btn btn-default')
             .attr('type', 'button')
             .text('Remove all magic')
@@ -76,4 +76,4 @@
     initDraggableModals();
     initInlineEditable();
     addButtonToRemoveEnhancedUx();
-})();
+})(jQuery);
