@@ -1,5 +1,5 @@
 <!--/*
-    Copyright 2016 Jasha Joachimsthal
+    Copyright 2016-2018 Jasha Joachimsthal
   
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -15,13 +15,15 @@
   */-->
 
 <head xmlns:th="http://www.thymeleaf.org">
-    <meta charset="UTF-8"/>
-    <title th:text="${title}">Hello, template</title>
+  <meta charset="UTF-8"/>
+  <title th:text="${title}">Hello, template</title>
 
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" th:href="@{/webjars/patternfly/2.10.0/dist/css/patternfly.min.css}"/>
-    <link rel="stylesheet" th:href="@{/webjars/patternfly/2.10.0/dist/css/patternfly-additions.min.css}"/>
-    <link rel="stylesheet" th:href="@{/webjars/x-editable/1.5.1/dist/bootstrap3-editable/css/bootstrap-editable.css}"/>
-    <link rel="stylesheet" th:href="@{/styles.css}"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly.min.css"/>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly-additions.min.css"/>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css"/>
+  <link rel="stylesheet" th:href="@{/styles.css}"/>
 </head>

@@ -48,11 +48,7 @@
         <assertj-core.version>3.8.0</assertj-core.version>
         <commons-lang3.version>3.7</commons-lang3.version>
         <jackson.version>2.9.3</jackson.version>
-        <jquery.version>3.2.1</jquery.version>
-        <jquery-ui.version>1.12.1</jquery-ui.version>
         <junit.version>4.12</junit.version>
-        <patternfly.version>2.10.0</patternfly.version>
-        <x-editable.version>1.5.1</x-editable.version>
 
         <libsass-maven-plugin.version>0.2.8-libsass_3.4.4</libsass-maven-plugin.version>
         <minify-maven-plugin.version>1.7.6</minify-maven-plugin.version>
@@ -78,30 +74,6 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons-lang3.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.webjars.bower</groupId>
-            <artifactId>patternfly</artifactId>
-            <version>${patternfly.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.webjars.npm</groupId>
-            <artifactId>x-editable</artifactId>
-            <version>${x-editable.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.webjars.bower</groupId>
-            <artifactId>jquery</artifactId>
-            <version>${jquery.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.webjars.bower</groupId>
-            <artifactId>jquery-ui</artifactId>
-            <version>${jquery-ui.version}</version>
         </dependency>
 
         <dependency>
