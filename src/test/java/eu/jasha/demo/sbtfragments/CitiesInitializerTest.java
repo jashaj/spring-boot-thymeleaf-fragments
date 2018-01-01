@@ -1,5 +1,5 @@
 /*
- *   Copyright 2016 Jasha Joachimsthal
+ *   Copyright 2018 Jasha Joachimsthal
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.
@@ -16,29 +16,30 @@
 
 package eu.jasha.demo.sbtfragments;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import javax.annotation.Resource;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringBootTest(classes = Application.class)
 @WebAppConfiguration
 public class CitiesInitializerTest {
 
-    @Resource
-    private CityDao cityDao;
+  @Resource
+  private CityDao cityDao;
 
-    @Test
-    public void should_have_inserted_cities() throws Exception {
-        List<City> cities = cityDao.getAll();
+  @Test
+  public void should_have_inserted_cities() throws Exception {
+    List<City> cities = cityDao.getAll();
 
-        assertThat(cities).isNotEmpty();
-    }
+    assertThat(cities).isNotEmpty();
+  }
 }
