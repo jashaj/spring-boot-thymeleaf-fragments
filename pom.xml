@@ -17,135 +17,135 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-    <parent>
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>1.5.9.RELEASE</version>
+    <relativePath/> <!-- lookup parent from repository -->
+  </parent>
+
+  <groupId>eu.jasha</groupId>
+  <artifactId>spring-boot-thymeleaf-fragments</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>spring-boot-thymeleaf-fragments</name>
+  <description>Demo project for partial template updates with Thymeleaf</description>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <java.version>1.8</java.version>
+
+    <assertj-core.version>3.8.0</assertj-core.version>
+    <commons-lang3.version>3.7</commons-lang3.version>
+    <jackson.version>2.9.3</jackson.version>
+    <junit.version>4.12</junit.version>
+
+    <libsass-maven-plugin.version>0.2.8-libsass_3.4.4</libsass-maven-plugin.version>
+    <minify-maven-plugin.version>1.7.6</minify-maven-plugin.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>${commons-lang3.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>${assertj-core.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>com.samaxes.maven</groupId>
+          <artifactId>minify-maven-plugin</artifactId>
+          <version>${minify-maven-plugin.version}</version>
+          <executions>
+            <execution>
+              <id>default-minify</id>
+              <configuration>
+                <webappSourceDir>${project.basedir}/src/main/resources</webappSourceDir>
+                <webappTargetDir>${project.build.directory}/classes</webappTargetDir>
+                <jsSourceDir>static</jsSourceDir>
+                <jsSourceIncludes>
+                  <jsSourceInclude>**.js</jsSourceInclude>
+                </jsSourceIncludes>
+                <nosuffix>true</nosuffix>
+              </configuration>
+              <goals>
+                <goal>minify</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+
+        <plugin>
+          <groupId>com.github.warmuuh</groupId>
+          <artifactId>libsass-maven-plugin</artifactId>
+          <version>${libsass-maven-plugin.version}</version>
+          <executions>
+            <execution>
+              <phase>generate-resources</phase>
+              <goals>
+                <goal>compile</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <inputPath>${basedir}/src/main/sass/</inputPath>
+            <outputPath>${project.build.directory}/classes/static</outputPath>
+            <outputStyle>compressed</outputStyle>
+            <generateSourceMap>false</generateSourceMap>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
+    <plugins>
+      <plugin>
         <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.9.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
-
-    <groupId>eu.jasha</groupId>
-    <artifactId>spring-boot-thymeleaf-fragments</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
-
-    <name>spring-boot-thymeleaf-fragments</name>
-    <description>Demo project for partial template updates with Thymeleaf</description>
-
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-        </license>
-    </licenses>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
-
-        <assertj-core.version>3.8.0</assertj-core.version>
-        <commons-lang3.version>3.7</commons-lang3.version>
-        <jackson.version>2.9.3</jackson.version>
-        <junit.version>4.12</junit.version>
-
-        <libsass-maven-plugin.version>0.2.8-libsass_3.4.4</libsass-maven-plugin.version>
-        <minify-maven-plugin.version>1.7.6</minify-maven-plugin.version>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>${commons-lang3.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <version>${assertj-core.version}</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>com.samaxes.maven</groupId>
-                    <artifactId>minify-maven-plugin</artifactId>
-                    <version>${minify-maven-plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <id>default-minify</id>
-                            <configuration>
-                                <webappSourceDir>${project.basedir}/src/main/resources</webappSourceDir>
-                                <webappTargetDir>${project.build.directory}/classes</webappTargetDir>
-                                <jsSourceDir>static</jsSourceDir>
-                                <jsSourceIncludes>
-                                    <jsSourceInclude>**.js</jsSourceInclude>
-                                </jsSourceIncludes>
-                                <nosuffix>true</nosuffix>
-                            </configuration>
-                            <goals>
-                                <goal>minify</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-
-                <plugin>
-                    <groupId>com.github.warmuuh</groupId>
-                    <artifactId>libsass-maven-plugin</artifactId>
-                    <version>${libsass-maven-plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <phase>generate-resources</phase>
-                            <goals>
-                                <goal>compile</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <inputPath>${basedir}/src/main/sass/</inputPath>
-                        <outputPath>${project.build.directory}/classes/static</outputPath>
-                        <outputStyle>compressed</outputStyle>
-                        <generateSourceMap>false</generateSourceMap>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>com.samaxes.maven</groupId>
-                <artifactId>minify-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>com.github.warmuuh</groupId>
-                <artifactId>libsass-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>com.samaxes.maven</groupId>
+        <artifactId>minify-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>com.github.warmuuh</groupId>
+        <artifactId>libsass-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>

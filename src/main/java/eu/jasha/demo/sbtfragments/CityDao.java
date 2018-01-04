@@ -1,5 +1,5 @@
 /*
- *   Copyright 2016 Jasha Joachimsthal
+ *   Copyright 2018 Jasha Joachimsthal
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.
@@ -16,42 +16,47 @@
 
 package eu.jasha.demo.sbtfragments;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
-
-import java.util.*;
 
 @Repository
 public class CityDao {
 
-    private Set<City> cities = new HashSet<>();
+  private Set<City> cities = new HashSet<>();
 
-    public Optional<City> find(String id) {
-        return cities
-                .stream()
-                .filter(c -> c.getId().equals(id))
-                .findFirst();
+  public Optional<City> find(String id) {
+    return cities
+        .stream()
+        .filter(c -> c.getId().equals(id))
+        .findFirst();
+  }
+
+  public void add(City city) {
+    cities.add(city);
+  }
+
+  public void update(City city) {
+    remove(city.getId());
+    add(city);
+  }
+
+
+  public void remove(String id) {
+    if (StringUtils.isNotBlank(id)) {
+      cities.removeIf(c -> c.getId().equals(id));
     }
+  }
 
-    public void add(City city) {
-        cities.add(city);
-    }
-
-    public void update(City city) {
-        remove(city.getId());
-        add(city);
-    }
-
-
-    public void remove(String id) {
-        if (StringUtils.isNotBlank(id)) {
-            cities.removeIf(c -> c.getId().equals(id));
-        }
-    }
-
-    public List<City> getAll() {
-        List<City> cityList = new ArrayList<>(cities);
-        cityList.sort((o1, o2) -> o1.getName().compareTo(o2.getName()));
-        return cityList;
-    }
+  public List<City> getAll() {
+    List<City> cityList = new ArrayList<>(cities);
+    cityList.sort(Comparator.comparing(City::getName));
+    return cityList;
+  }
 }

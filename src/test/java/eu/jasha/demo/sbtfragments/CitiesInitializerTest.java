@@ -37,7 +37,7 @@ public class CitiesInitializerTest {
   private CityDao cityDao;
 
   @Test
-  public void should_have_inserted_cities() throws Exception {
+  public void should_have_inserted_cities() {
     List<City> cities = cityDao.getAll();
 
     assertThat(cities).isNotEmpty();

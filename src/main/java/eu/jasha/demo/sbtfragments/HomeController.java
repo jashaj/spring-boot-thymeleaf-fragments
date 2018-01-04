@@ -1,5 +1,5 @@
 /*
- *   Copyright 2016 Jasha Joachimsthal
+ *   Copyright 2018 Jasha Joachimsthal
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.
@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeController {
 
-    static final String VIEW_INDEX = "pages/index";
+  static final String VIEW_INDEX = "pages/index";
 
-    @RequestMapping(value = "")
-    public String getHome() {
-        return VIEW_INDEX;
-    }
+  @RequestMapping(value = "")
+  public String getHome() {
+    return VIEW_INDEX;
+  }
 }

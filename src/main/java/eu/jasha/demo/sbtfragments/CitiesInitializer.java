@@ -1,5 +1,5 @@
 /*
- *   Copyright 2016 Jasha Joachimsthal
+ *   Copyright 2018 Jasha Joachimsthal
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.
@@ -16,38 +16,38 @@
 
 package eu.jasha.demo.sbtfragments;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.InputStream;
+import java.util.List;
+
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 
-import java.io.InputStream;
-import java.util.List;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
 public class CitiesInitializer implements InitializingBean {
 
-    @Autowired
-    private CityDao cityDao;
-    @Autowired
-    private ObjectMapper objectMapper;
-    @Value("${sbtfragments.citiesFile}")
-    private String citiesFile;
+  @Resource
+  private CityDao cityDao;
+  @Resource
+  private ObjectMapper objectMapper;
+  @Value("${sbtfragments.citiesFile}")
+  private String citiesFile;
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        Resource resource = new ClassPathResource(citiesFile);
-        List<City> cities;
-        try (InputStream inputStream = resource.getInputStream()) {
-            cities = objectMapper.readValue(inputStream, new TypeReference<List<City>>() {
-            });
-        }
-        for (City city : cities) {
-            cityDao.add(city);
-        }
+  @Override
+  public void afterPropertiesSet() throws Exception {
+    org.springframework.core.io.Resource resource = new ClassPathResource(citiesFile);
+
+    List<City> cities;
+    try (InputStream inputStream = resource.getInputStream()) {
+      cities = objectMapper.readValue(inputStream, new TypeReference<List<City>>() {
+      });
     }
+    cities.forEach(city -> cityDao.add(city));
+  }
 }

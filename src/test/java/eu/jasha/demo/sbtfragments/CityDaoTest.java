@@ -1,5 +1,5 @@
 /*
- *   Copyright 2016 Jasha Joachimsthal
+ *   Copyright 2018 Jasha Joachimsthal
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.
@@ -16,64 +16,71 @@
 
 package eu.jasha.demo.sbtfragments;
 
-import org.junit.Before;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.Before;
+import org.junit.Test;
 
 @SuppressWarnings("OptionalGetWithoutIsPresent")
 public class CityDaoTest {
 
-    private static final String CITY_ID = "sim";
-    private CityDao cityDao;
-    private City simCity;
+  private static final String CITY_ID = "sim";
+  private CityDao cityDao;
+  private City simCity;
 
-    @Before
-    public void setup() throws Exception {
-        cityDao = new CityDao();
-        simCity = new City(CITY_ID, "Sim City", 2016, 123_456);
-        cityDao.add(simCity);
-    }
+  @Before
+  public void setup() {
+    cityDao = new CityDao();
+    simCity = new City(CITY_ID, "Sim City", 2016, 123_456);
+    cityDao.add(simCity);
+  }
 
-    @Test
-    public void should_return_empty_optional_for_unknown_id() throws Exception {
-        Optional<City> city = cityDao.find("unknown");
+  @Test
+  public void should_return_empty_optional_for_unknown_id() {
+    Optional<City> city = cityDao.find("unknown");
 
-        assertThat(city).isEmpty();
-    }
+    assertThat(city).isNotPresent();
+  }
 
-    @Test
-    public void should_add_city() throws Exception {
-        Optional<City> city = cityDao.find(CITY_ID);
+  @Test
+  public void should_add_city() {
+    Optional<City> city = cityDao.find(CITY_ID);
 
-        assertThat(city).isPresent();
-        assertThat(city.get()).isEqualTo(simCity);
-    }
+    assertThat(city)
+        .isPresent()
+        .hasValue(simCity);
+  }
 
-    @Test
-    public void should_update_city() throws Exception {
-        simCity.setFoundedIn(2015);
-        cityDao.update(simCity);
+  @Test
+  public void should_update_city() {
+    simCity.setFoundedIn(2015);
+    cityDao.update(simCity);
 
-        Optional<City> city = cityDao.find(CITY_ID);
-        assertThat(city.get().getFoundedIn()).isEqualTo(2015);
-    }
+    Optional<City> city = cityDao.find(CITY_ID);
 
-    @Test
-    public void should_remove_city() throws Exception {
-        cityDao.remove(CITY_ID);
+    assertThat(city)
+        .isPresent()
+        .hasValueSatisfying(s -> assertThat(s.getFoundedIn()).isEqualTo(2015));
+  }
 
-        Optional<City> city = cityDao.find(CITY_ID);
-        assertThat(city).isEmpty();
-    }
+  @Test
+  public void should_remove_city() {
+    cityDao.remove(CITY_ID);
 
-    @Test
-    public void should_find_all_cities() throws Exception {
-        List<City> cities = cityDao.getAll();
+    Optional<City> city = cityDao.find(CITY_ID);
 
-        assertThat(cities).hasSize(1).containsExactly(simCity);
-    }
+    assertThat(city).isNotPresent();
+  }
+
+  @Test
+  public void should_find_all_cities() {
+    List<City> cities = cityDao.getAll();
+
+    assertThat(cities)
+        .hasSize(1)
+        .containsExactly(simCity);
+  }
 }

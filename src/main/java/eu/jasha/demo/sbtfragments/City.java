@@ -1,5 +1,5 @@
 /*
- *   Copyright 2016 Jasha Joachimsthal
+ *   Copyright 2018 Jasha Joachimsthal
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.
@@ -16,87 +16,87 @@
 
 package eu.jasha.demo.sbtfragments;
 
+import java.io.Serializable;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import java.io.Serializable;
-
 public class City implements Serializable {
 
-    private static final long serialVersionUID = -7041939576079911914L;
-    private String id;
-    private String name;
-    private int foundedIn;
-    private int population;
+  private static final long serialVersionUID = -7041939576079911914L;
+  private String id;
+  private String name;
+  private int foundedIn;
+  private int population;
 
-    public City() {
+  public City() {
+  }
+
+  public City(String id, String name, int foundedIn, int population) {
+    this();
+    this.id = id;
+    this.name = name;
+    this.foundedIn = foundedIn;
+    this.population = population;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public int getFoundedIn() {
+    return foundedIn;
+  }
+
+  public void setFoundedIn(int foundedIn) {
+    this.foundedIn = foundedIn;
+  }
+
+  public int getPopulation() {
+    return population;
+  }
+
+  public void setPopulation(int population) {
+    this.population = population;
+  }
+
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == null) {
+      return false;
     }
-
-    public City(String id, String name, int foundedIn, int population) {
-        this();
-        this.id = id;
-        this.name = name;
-        this.foundedIn = foundedIn;
-        this.population = population;
+    if (obj == this) {
+      return true;
     }
-
-    public void setId(String id) {
-        this.id = id;
+    if (obj.getClass() != getClass()) {
+      return false;
     }
+    City rhs = (City) obj;
+    return new EqualsBuilder()
+        .append(this.id, rhs.id)
+        .append(this.name, rhs.name)
+        .append(this.foundedIn, rhs.foundedIn)
+        .append(this.population, rhs.population)
+        .isEquals();
+  }
 
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getFoundedIn() {
-        return foundedIn;
-    }
-
-    public void setFoundedIn(int foundedIn) {
-        this.foundedIn = foundedIn;
-    }
-
-    public int getPopulation() {
-        return population;
-    }
-
-    public void setPopulation(int population) {
-        this.population = population;
-    }
-
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (obj == this) {
-            return true;
-        }
-        if (obj.getClass() != getClass()) {
-            return false;
-        }
-        City rhs = (City) obj;
-        return new EqualsBuilder()
-                .append(this.id, rhs.id)
-                .append(this.name, rhs.name)
-                .append(this.foundedIn, rhs.foundedIn)
-                .append(this.population, rhs.population)
-                .isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder()
-                .append(id)
-                .toHashCode();
-    }
+  @Override
+  public int hashCode() {
+    return new HashCodeBuilder()
+        .append(id)
+        .toHashCode();
+  }
 }

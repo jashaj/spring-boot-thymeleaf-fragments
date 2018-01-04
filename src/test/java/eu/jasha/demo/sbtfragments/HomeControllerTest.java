@@ -1,5 +1,5 @@
 /*
- *   Copyright 2016 Jasha Joachimsthal
+ *   Copyright 2018 Jasha Joachimsthal
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.
@@ -16,25 +16,25 @@
 
 package eu.jasha.demo.sbtfragments;
 
-import org.junit.Before;
-import org.junit.Test;
-
 import static eu.jasha.demo.sbtfragments.HomeController.VIEW_INDEX;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.junit.Before;
+import org.junit.Test;
+
 public class HomeControllerTest {
 
-    private HomeController controller;
+  private HomeController controller;
 
-    @Before
-    public void setup() throws Exception {
-        controller = new HomeController();
-    }
+  @Before
+  public void setup() {
+    controller = new HomeController();
+  }
 
-    @Test
-    public void should_show_index() throws Exception {
-        String home = controller.getHome();
+  @Test
+  public void should_show_index() {
+    String home = controller.getHome();
 
-        assertThat(home).isEqualTo(VIEW_INDEX);
-    }
+    assertThat(home).isEqualTo(VIEW_INDEX);
+  }
 }
