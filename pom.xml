@@ -63,7 +63,10 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
-
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
@@ -95,12 +98,14 @@
             <execution>
               <id>default-minify</id>
               <configuration>
-                <webappSourceDir>${project.basedir}/src/main/resources</webappSourceDir>
+                <webappSourceDir>${project.basedir}/src/main</webappSourceDir>
                 <webappTargetDir>${project.build.directory}/classes</webappTargetDir>
-                <jsSourceDir>static</jsSourceDir>
+                <jsSourceDir>javascript</jsSourceDir>
                 <jsSourceIncludes>
                   <jsSourceInclude>**.js</jsSourceInclude>
                 </jsSourceIncludes>
+                <jsTargetDir>static</jsTargetDir>
+                <jsFinalFile>script.js</jsFinalFile>
                 <nosuffix>true</nosuffix>
               </configuration>
               <goals>

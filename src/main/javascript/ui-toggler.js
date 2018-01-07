@@ -23,31 +23,7 @@
   var uiModeStorageKey = 'uiMode';
 
   function initInlineEditable() {
-    $.fn.editable.defaults.mode = 'inline';
-    $('.inline-editable').editable();
-  }
-
-  function initModalEventHandlers() {
-    // loads content into .modal-body when the modal is being shown
-    var $cityModal = $('#cityModal');
-    $cityModal.on('show.bs.modal', function (e) {
-      var $modal = $(this);
-      var trigger = e.relatedTarget;
-      var location = trigger.getAttribute("href");
-      $modal.find('.modal-title').text(trigger.innerText);
-      $modal.find('.modal-body').load(location, initInlineEditable);
-    });
-
-    // Closes the modal when the user clicks the cancel button instead of following its link
-    $cityModal.on('click', '.btn-cancel', function (e) {
-      e.preventDefault();
-      $cityModal.modal('hide');
-    });
-
-    // Make modals draggable
-    $('.modal-dialog').draggable({
-      handle: ".modal-header"
-    });
+    $('.inline-editable').editable({mode: 'inline'});
   }
 
   function uiStandardHtml() {
@@ -132,7 +108,6 @@
     if (preferredUiMode === UI_MODES.ENRICHED) {
       uiEnriched();
     }
-    initModalEventHandlers();
     addButtonToToggleUi();
   }
 
