@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--/*
-    Copyright 2016 Jasha Joachimsthal
+    Copyright 2016-2019 Jasha Joachimsthal
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout"
+      layout:decorate="~{layout}"
       th:with="title='Hello, template'">
 <th:block layout:fragment="content">
     <p>This is an example project to support rendering both full pages and partial pages</p>

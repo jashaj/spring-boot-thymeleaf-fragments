@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--/*
-    Copyright 2016 Jasha Joachimsthal
+    Copyright 2016-2019 Jasha Joachimsthal
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -17,18 +17,18 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<th:block layout:include="fragments/htmlhead"/>
+<th:block layout:insert="~{fragments/htmlhead}"/>
 <body>
-<th:block layout:replace="fragments/navigation"/>
+<th:block layout:replace="~{fragments/navigation}"/>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <th:block layout:include="fragments/pagetitle"/>
+            <th:block layout:insert="~{fragments/pagetitle}"/>
             <th:block layout:fragment="content"/>
         </div>
     </div>
 </div>
 <th:block layout:fragment="body_end"/>
-<th:block layout:replace="fragments/body_scripts :: end"/>
+<th:block layout:replace="~{fragments/body_scripts :: end}"/>
 </body>
 </html>
