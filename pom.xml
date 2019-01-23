@@ -50,6 +50,7 @@
     <jackson.version>2.9.3</jackson.version>
     <junit.version>4.12</junit.version>
     <thymeleaf-layout-dialect.version>2.3.0</thymeleaf-layout-dialect.version>
+    <thymeleaf-with-dialect.version>3.0.1</thymeleaf-with-dialect.version>
 
     <libsass-maven-plugin.version>0.2.8-libsass_3.4.4</libsass-maven-plugin.version>
     <minify-maven-plugin.version>1.7.6</minify-maven-plugin.version>
@@ -72,6 +73,11 @@
       <groupId>nz.net.ultraq.thymeleaf</groupId>
       <artifactId>thymeleaf-layout-dialect</artifactId>
       <version>${thymeleaf-layout-dialect.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.mfrey.thymeleaf.extras.with</groupId>
+      <artifactId>thymeleaf-with-dialect</artifactId>
+      <version>${thymeleaf-with-dialect.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>

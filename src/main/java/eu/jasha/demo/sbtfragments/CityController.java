@@ -1,5 +1,5 @@
 /*
- *   Copyright 2018 Jasha Joachimsthal
+ *   Copyright 2018-2019 Jasha Joachimsthal
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.
@@ -17,8 +17,6 @@
 package eu.jasha.demo.sbtfragments;
 
 import static org.springframework.http.HttpStatus.NO_CONTENT;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.util.function.Supplier;
 
@@ -29,8 +27,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -39,10 +39,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequestMapping("cities")
-@SuppressWarnings("OptionalGetWithoutIsPresent")
 public class CityController {
-
-  private static final Logger LOG = LoggerFactory.getLogger(CityController.class);
 
   static final String VIEW_CITIES = "pages/cities";
   static final String VIEW_CITY_FORM = "pages/city-form";
@@ -51,7 +48,7 @@ public class CityController {
   static final String MODEL_ATTRIBUTE_CITY = "city";
   static final String FRAGMENT_FORM = " :: form";
   static final String SECTION_CITIES = "cities";
-
+  private static final Logger LOG = LoggerFactory.getLogger(CityController.class);
   private static final String ID = "id";
   private static final String PATH_ID = "/{id}";
   private static final String X_REQUESTED_WITH_XML_HTTP_REQUEST = "X-Requested-With=XMLHttpRequest";
@@ -65,7 +62,7 @@ public class CityController {
     return VIEW_CITIES;
   }
 
-  @RequestMapping(value = PATH_ID, method = GET)
+  @GetMapping(value = PATH_ID)
   public String showUpdateCityPage(@PathVariable(ID) String id,
                                    ModelMap modelMap) {
     City city = cityDao.find(id).orElseThrow(notFoundException());
@@ -73,7 +70,7 @@ public class CityController {
     return VIEW_CITY_FORM;
   }
 
-  @RequestMapping(value = PATH_ID, method = GET, headers = { X_REQUESTED_WITH_XML_HTTP_REQUEST })
+  @GetMapping(value = PATH_ID, headers = { X_REQUESTED_WITH_XML_HTTP_REQUEST })
   public String showUpdateCityForm(@PathVariable(ID) String id,
                                    ModelMap modelMap) {
     LOG.info("Requesting city {} via XHR", id);
@@ -82,7 +79,7 @@ public class CityController {
     return showUpdateCityPage(id, modelMap) + FRAGMENT_FORM;
   }
 
-  @RequestMapping(value = PATH_ID, method = POST)
+  @PostMapping(value = PATH_ID)
   public RedirectView updateCity(@PathVariable(ID) String id,
                                  @ModelAttribute("city") City city) {
     LOG.info("Updating city {}", id);
@@ -91,7 +88,7 @@ public class CityController {
     return new RedirectView("");
   }
 
-  @RequestMapping(method = POST, headers = { X_REQUESTED_WITH_XML_HTTP_REQUEST }, params = { "pk" })
+  @PostMapping(headers = { X_REQUESTED_WITH_XML_HTTP_REQUEST }, params = { "pk" })
   @ResponseStatus(code = NO_CONTENT)
   public void partialUpdateCity(@RequestParam("pk") String id,
                                 @RequestParam("name") String parameterName,
@@ -110,7 +107,7 @@ public class CityController {
     cityDao.update(city);
   }
 
-  @RequestMapping(value = PATH_ID + "/delete", method = GET)
+  @GetMapping(value = PATH_ID + "/delete")
   public String showDeleteCityPage(@PathVariable(ID) String id,
                                    ModelMap modelMap) {
     City city = cityDao.find(id).orElseThrow(notFoundException());
@@ -119,7 +116,7 @@ public class CityController {
     return VIEW_CITY_DELETE;
   }
 
-  @RequestMapping(value = PATH_ID + "/delete", method = GET, headers = { X_REQUESTED_WITH_XML_HTTP_REQUEST })
+  @GetMapping(value = PATH_ID + "/delete", headers = { X_REQUESTED_WITH_XML_HTTP_REQUEST })
   public String showDeleteCityForm(@PathVariable(ID) String id,
                                    ModelMap modelMap) {
     LOG.info("Requesting delete city form {} via XHR", id);
@@ -127,7 +124,7 @@ public class CityController {
     return showDeleteCityPage(id, modelMap) + FRAGMENT_FORM;
   }
 
-  @RequestMapping(value = PATH_ID + "/delete", method = POST)
+  @PostMapping(value = PATH_ID + "/delete")
   public RedirectView deleteCity(@PathVariable(ID) String id) {
     LOG.info("Deleting city {}", id);
 

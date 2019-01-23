@@ -17,8 +17,9 @@
 
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:with="http://www.thymeleaf.org/extras/with"
       layout:decorate="~{layout}"
-      th:with="title='Cities'">
+      with:title="Cities">
 <th:block layout:fragment="content">
     <table class="table table-striped table-bordered" id="cities">
         <thead>
