@@ -14,15 +14,23 @@
  *   limitations under the License.
  */
 
-package eu.jasha.demo.sbtfragments;
+package eu.jasha.demo.sbtfragments.config;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import javax.validation.constraints.NotEmpty;
 
-@SpringBootApplication
-public class Application {
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.validation.annotation.Validated;
 
-  public static void main(String... args) {
-    SpringApplication.run(Application.class, args);
-  }
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@Validated
+@ConfigurationProperties(prefix = "sbtfragments")
+public class ProjectProperties {
+
+  @NotEmpty
+  private String citiesFile;
+
 }

@@ -1,5 +1,5 @@
 /*
- *   Copyright 2018 Jasha Joachimsthal
+ *   Copyright 2019 Jasha Joachimsthal
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.
@@ -22,26 +22,28 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import eu.jasha.demo.sbtfragments.config.ProjectProperties;
 
 @Configuration
+@EnableConfigurationProperties(ProjectProperties.class)
 public class CitiesInitializer implements InitializingBean {
 
   @Resource
   private CityDao cityDao;
   @Resource
   private ObjectMapper objectMapper;
-  @Value("${sbtfragments.citiesFile}")
-  private String citiesFile;
+  @Resource
+  private ProjectProperties projectProperties;
 
   @Override
   public void afterPropertiesSet() throws Exception {
-    org.springframework.core.io.Resource resource = new ClassPathResource(citiesFile);
+    org.springframework.core.io.Resource resource = new ClassPathResource(projectProperties.getCitiesFile());
 
     List<City> cities;
     try (InputStream inputStream = resource.getInputStream()) {
