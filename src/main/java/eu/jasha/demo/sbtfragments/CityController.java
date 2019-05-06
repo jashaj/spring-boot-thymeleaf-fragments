@@ -1,11 +1,11 @@
 /*
- *   Copyright 2018-2019 Jasha Joachimsthal
+ *   Copyright 2019 Jasha Joachimsthal
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.
  *   You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *       https://www.apache.org/licenses/LICENSE-2.0
  *
  *   Unless required by applicable law or agreed to in writing, software
  *   distributed under the License is distributed on an "AS IS" BASIS,
@@ -56,7 +56,7 @@ public class CityController {
   @Resource
   private CityDao cityDao;
 
-  @RequestMapping
+  @GetMapping
   public String overview(ModelMap modelMap) {
     modelMap.addAttribute(MODEL_ATTRIBUTE_CITIES, cityDao.getAll());
     return VIEW_CITIES;
