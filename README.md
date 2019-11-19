@@ -1,6 +1,6 @@
 # Demo project for partial template updates with Thymeleaf
 
-![Maven build](https://github.com/jashaj/spring-boot-thymeleaf-fragments/workflows/.github/workflows/maven.yml/badge.svg)
+[![Build Status](https://github.com/jashaj/spring-boot-thymeleaf-fragments/workflows/Java%20CI/badge.svg)](https://github.com/jashaj/spring-boot-thymeleaf-fragments/actions)
 
 This is a Spring Boot application to demonstrate how you can reuse parts of a template to get a more dynamic user experience. 
 
