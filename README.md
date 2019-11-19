@@ -1,5 +1,7 @@
 # Demo project for partial template updates with Thymeleaf
 
+![Maven build](https://github.com/jashaj/spring-boot-thymeleaf-fragments/workflows/.github/workflows/maven.yml/badge.svg)
+
 This is a Spring Boot application to demonstrate how you can reuse parts of a template to get a more dynamic user experience. 
 
 It uses [Bootstrap](https://getbootstrap.com/) for the UI.
