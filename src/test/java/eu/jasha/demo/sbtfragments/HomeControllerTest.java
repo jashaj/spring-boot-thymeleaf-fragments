@@ -22,17 +22,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class HomeControllerTest {
+class HomeControllerTest {
 
   private HomeController controller;
 
   @BeforeEach
-  public void setup() {
+  void setup() {
     controller = new HomeController();
   }
 
   @Test
-  public void should_show_index() {
+  void should_show_index() {
     String home = controller.getHome();
 
     assertThat(home).isEqualTo(VIEW_INDEX);

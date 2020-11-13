@@ -24,28 +24,28 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class CityDaoTest {
+class CityDaoTest {
 
   private static final String CITY_ID = "sim";
   private CityDao cityDao;
   private City simCity;
 
   @BeforeEach
-  public void setup() {
+  void setup() {
     cityDao = new CityDao();
     simCity = new City(CITY_ID, "Sim City", 2016, 123_456);
     cityDao.add(simCity);
   }
 
   @Test
-  public void should_return_empty_optional_for_unknown_id() {
+  void should_return_empty_optional_for_unknown_id() {
     Optional<City> city = cityDao.find("unknown");
 
     assertThat(city).isNotPresent();
   }
 
   @Test
-  public void should_add_city() {
+  void should_add_city() {
     Optional<City> city = cityDao.find(CITY_ID);
 
     assertThat(city)
@@ -54,7 +54,7 @@ public class CityDaoTest {
   }
 
   @Test
-  public void should_update_city() {
+  void should_update_city() {
     simCity.setFoundedIn(2015);
     cityDao.update(simCity);
 
@@ -66,7 +66,7 @@ public class CityDaoTest {
   }
 
   @Test
-  public void should_remove_city() {
+  void should_remove_city() {
     cityDao.remove(CITY_ID);
 
     Optional<City> city = cityDao.find(CITY_ID);
@@ -75,7 +75,7 @@ public class CityDaoTest {
   }
 
   @Test
-  public void should_find_all_cities() {
+  void should_find_all_cities() {
     List<City> cities = cityDao.getAll();
 
     assertThat(cities)
