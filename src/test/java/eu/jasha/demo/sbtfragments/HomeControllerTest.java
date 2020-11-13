@@ -19,14 +19,14 @@ package eu.jasha.demo.sbtfragments;
 import static eu.jasha.demo.sbtfragments.HomeController.VIEW_INDEX;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class HomeControllerTest {
 
   private HomeController controller;
 
-  @Before
+  @BeforeEach
   public void setup() {
     controller = new HomeController();
   }
