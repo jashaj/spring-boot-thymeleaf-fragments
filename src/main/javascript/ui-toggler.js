@@ -50,8 +50,8 @@
   }
 
   function toggleUi() {
-    var uiMode = getUiMode();
-    if (uiMode === UI_MODES.ENRICHED) {
+    var _uiMode = getUiMode();
+    if (_uiMode === UI_MODES.ENRICHED) {
       uiStandardHtml();
       setUiMode(UI_MODES.PLAIN)
     }
