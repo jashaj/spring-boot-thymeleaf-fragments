@@ -21,8 +21,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class CityDaoTest {
 
@@ -30,7 +30,7 @@ public class CityDaoTest {
   private CityDao cityDao;
   private City simCity;
 
-  @Before
+  @BeforeEach
   public void setup() {
     cityDao = new CityDao();
     simCity = new City(CITY_ID, "Sim City", 2016, 123_456);
