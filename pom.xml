@@ -51,7 +51,7 @@
     <thymeleaf-layout-dialect.version>2.5.1</thymeleaf-layout-dialect.version>
     <thymeleaf-with-dialect.version>3.0.1</thymeleaf-with-dialect.version>
 
-    <libsass-maven-plugin.version>0.2.10-libsass_3.5.3</libsass-maven-plugin.version>
+    <libsass-maven-plugin.version>0.2.26</libsass-maven-plugin.version>
     <minify-maven-plugin.version>1.7.6</minify-maven-plugin.version>
   </properties>
 
@@ -140,7 +140,7 @@
         </plugin>
 
         <plugin>
-          <groupId>com.github.warmuuh</groupId>
+          <groupId>com.gitlab.haynes</groupId>
           <artifactId>libsass-maven-plugin</artifactId>
           <version>${libsass-maven-plugin.version}</version>
           <executions>
@@ -171,7 +171,7 @@
         <artifactId>minify-maven-plugin</artifactId>
       </plugin>
       <plugin>
-        <groupId>com.github.warmuuh</groupId>
+        <groupId>com.gitlab.haynes</groupId>
         <artifactId>libsass-maven-plugin</artifactId>
       </plugin>
     </plugins>
