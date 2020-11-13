@@ -42,7 +42,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.view.RedirectView;
 
 @ExtendWith(MockitoExtension.class)
-public class CityControllerTest {
+class CityControllerTest {
 
   private static final String CITY_ID = "sim";
   @Mock
@@ -54,13 +54,13 @@ public class CityControllerTest {
   private City city;
 
   @BeforeEach
-  public void setup() {
+  void setup() {
     modelMap = new ModelMap();
     city = new City(CITY_ID, "Sim City", 2016, 123_456);
   }
 
   @Test
-  public void should_show_overview() {
+  void should_show_overview() {
     List<City> cityList = new ArrayList<>();
     when(cityDao.getAll()).thenReturn(cityList);
 
@@ -71,7 +71,7 @@ public class CityControllerTest {
   }
 
   @Test
-  public void should_show_city_form_page() {
+  void should_show_city_form_page() {
     mockFindCity();
 
     String view = controller.showUpdateCityPage(CITY_ID, modelMap);
@@ -81,7 +81,7 @@ public class CityControllerTest {
   }
 
   @Test
-  public void should_show_city_form_fragment() {
+  void should_show_city_form_fragment() {
     mockFindCity();
 
     String view = controller.showUpdateCityForm(CITY_ID, modelMap);
@@ -91,17 +91,17 @@ public class CityControllerTest {
   }
 
   @Test
-  public void should_update_city() {
+  void should_update_city() {
     RedirectView view = controller.updateCity(CITY_ID, city);
 
     assertThat(view.isRedirectView()).isTrue();
-    assertThat(view.getUrl()).isEqualTo("");
+    assertThat(view.getUrl()).isEmpty();
 
     verify(cityDao).update(city);
   }
 
   @Test
-  public void should_update_city_name() {
+  void should_update_city_name() {
     mockFindCity();
 
     controller.partialUpdateCity(CITY_ID, "name", "Almere");
@@ -112,7 +112,7 @@ public class CityControllerTest {
   }
 
   @Test
-  public void should_update_city_population() {
+  void should_update_city_population() {
     mockFindCity();
 
     controller.partialUpdateCity(CITY_ID, "population", "987654");
@@ -123,7 +123,7 @@ public class CityControllerTest {
   }
 
   @Test
-  public void should_update_city_founded_in() {
+  void should_update_city_founded_in() {
     mockFindCity();
 
     controller.partialUpdateCity(CITY_ID, "foundedIn", "2000");
@@ -134,7 +134,7 @@ public class CityControllerTest {
   }
 
   @Test
-  public void should_not_update_city_if_parameter_is_unknown() {
+  void should_not_update_city_if_parameter_is_unknown() {
     mockFindCity();
 
     controller.partialUpdateCity(CITY_ID, "unsupported", "My value");
@@ -143,7 +143,7 @@ public class CityControllerTest {
   }
 
   @Test
-  public void should_show_delete_city_page() {
+  void should_show_delete_city_page() {
     mockFindCity();
 
     String view = controller.showDeleteCityPage(CITY_ID, modelMap);
@@ -153,7 +153,7 @@ public class CityControllerTest {
   }
 
   @Test
-  public void should_show_delete_city_form_fragment() {
+  void should_show_delete_city_form_fragment() {
     mockFindCity();
 
     String view = controller.showDeleteCityForm(CITY_ID, modelMap);
@@ -163,7 +163,7 @@ public class CityControllerTest {
   }
 
   @Test
-  public void should_delete_city() {
+  void should_delete_city() {
     RedirectView view = controller.deleteCity(CITY_ID);
 
     assertThat(view.isRedirectView()).isTrue();
@@ -173,7 +173,7 @@ public class CityControllerTest {
   }
 
   @Test
-  public void should_set_section_to_modelMap() {
+  void should_set_section_to_modelMap() {
     String section = controller.section();
 
     assertThat(section).isEqualTo(SECTION_CITIES);

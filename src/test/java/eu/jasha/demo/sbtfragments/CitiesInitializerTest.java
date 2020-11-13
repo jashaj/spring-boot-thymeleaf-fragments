@@ -28,13 +28,13 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 @SpringBootTest(classes = Application.class)
 @WebAppConfiguration
-public class CitiesInitializerTest {
+class CitiesInitializerTest {
 
   @Resource
   private CityDao cityDao;
 
   @Test
-  public void should_have_inserted_cities() {
+  void should_have_inserted_cities() {
     List<City> cities = cityDao.getAll();
 
     assertThat(cities).isNotEmpty();
