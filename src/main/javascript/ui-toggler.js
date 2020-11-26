@@ -15,12 +15,12 @@
  */
 
 (function ($, window) {
-  var UI_MODES = {
+  const UI_MODES = {
     ENRICHED: 'enriched',
     PLAIN: 'plain'
   };
-  var uiMode = UI_MODES.ENRICHED;
-  var uiModeStorageKey = 'uiMode';
+  let uiMode = UI_MODES.ENRICHED;
+  const uiModeStorageKey = 'uiMode';
 
   function initInlineEditable() {
     $('.inline-editable').editable({mode: 'inline'});
@@ -50,7 +50,7 @@
   }
 
   function toggleUi() {
-    var _uiMode = getUiMode();
+    const _uiMode = getUiMode();
     if (_uiMode === UI_MODES.ENRICHED) {
       uiStandardHtml();
       setUiMode(UI_MODES.PLAIN)
@@ -62,11 +62,13 @@
   }
 
   function addButtonToToggleUi() {
-    var $toggleUiBtn = $('<a></a>')
+    const $toggleUiBtn = $('<a></a>')
         .attr('role', 'button')
         .text('Toggle UI')
         .on('click', toggleUi);
-    $('#ui-toggle').html($toggleUiBtn).removeClass('hidden');
+    $('#ui-toggle')
+        .html($toggleUiBtn)
+        .removeClass('hidden');
   }
 
   function supportsSessionStorage() {
@@ -86,7 +88,7 @@
 
   function getUiMode() {
     if (supportsSessionStorage()) {
-      var storedMode = window.sessionStorage.getItem(uiModeStorageKey) || '';
+      const storedMode = window.sessionStorage.getItem(uiModeStorageKey) || '';
       if (storedMode.length > 0) {
         uiMode = storedMode;
       }
@@ -104,7 +106,7 @@
   }
 
   function initUi() {
-    var preferredUiMode = getUiMode();
+    const preferredUiMode = getUiMode();
     if (preferredUiMode === UI_MODES.ENRICHED) {
       uiEnriched();
     }

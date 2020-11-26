@@ -15,19 +15,19 @@
  */
 
 (function ($) {
-  function initModalEventHandlers() {
+  const initModalEventHandlers = () => {
     // loads content into .modal-body when the modal is being shown
-    var $cityModal = $('#cityModal');
-    $cityModal.on('show.bs.modal', function (e) {
-      var $modal = $(e.target);
-      var trigger = e.relatedTarget;
-      var location = trigger.getAttribute('href');
+    const $cityModal = $('#cityModal');
+    $cityModal.on('show.bs.modal', (e) => {
+      const $modal = $(e.target);
+      const trigger = e.relatedTarget;
+      const location = trigger.getAttribute('href');
       $modal.find('.modal-title').text(trigger.innerText);
       $modal.find('.modal-body').load(location);
     });
 
     // Closes the modal when the user clicks the cancel button instead of following its link
-    $('.modal').on('click', '.btn-cancel', function (e) {
+    $('.modal').on('click', '.btn-cancel', (e) => {
       e.preventDefault();
       $(e.delegateTarget).modal('hide');
     });
