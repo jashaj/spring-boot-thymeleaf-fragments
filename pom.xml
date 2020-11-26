@@ -52,7 +52,6 @@
     <thymeleaf-with-dialect.version>3.0.1</thymeleaf-with-dialect.version>
 
     <libsass-maven-plugin.version>0.2.26</libsass-maven-plugin.version>
-    <minify-maven-plugin.version>1.7.6</minify-maven-plugin.version>
   </properties>
 
   <dependencies>
@@ -112,29 +111,39 @@
   </dependencies>
 
   <build>
+    <resources>
+      <resource>
+        <directory>${project.basedir}/src/main/resources</directory>
+      </resource>
+      <resource>
+        <directory>${project.basedir}/target/generated-resources</directory>
+      </resource>
+    </resources>
     <pluginManagement>
       <plugins>
         <plugin>
-          <groupId>com.samaxes.maven</groupId>
-          <artifactId>minify-maven-plugin</artifactId>
-          <version>${minify-maven-plugin.version}</version>
+          <groupId>com.github.blutorange</groupId>
+          <artifactId>closure-compiler-maven-plugin</artifactId>
+          <version>2.19.0</version>
+          <configuration>
+            <baseSourceDir>${project.basedir}/src/main</baseSourceDir>
+            <baseTargetDir>${project.build.directory}/generated-resources</baseTargetDir>
+          </configuration>
           <executions>
             <execution>
               <id>default-minify</id>
               <configuration>
-                <webappSourceDir>${project.basedir}/src/main</webappSourceDir>
-                <webappTargetDir>${project.build.directory}/classes</webappTargetDir>
-                <jsSourceDir>javascript</jsSourceDir>
-                <jsSourceIncludes>
-                  <jsSourceInclude>**.js</jsSourceInclude>
-                </jsSourceIncludes>
-                <jsTargetDir>static</jsTargetDir>
-                <jsFinalFile>script.js</jsFinalFile>
-                <nosuffix>true</nosuffix>
+                <encoding>UTF-8</encoding>
+                <sourceDir>javascript</sourceDir>
+                <targetDir>static</targetDir>
+                <includes>**/*.js</includes>
+                <skipMerge>false</skipMerge>
+                <outputFilename>script.js</outputFilename>
               </configuration>
               <goals>
                 <goal>minify</goal>
               </goals>
+              <phase>generate-resources</phase>
             </execution>
           </executions>
         </plugin>
@@ -167,8 +176,8 @@
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
       <plugin>
-        <groupId>com.samaxes.maven</groupId>
-        <artifactId>minify-maven-plugin</artifactId>
+        <groupId>com.github.blutorange</groupId>
+        <artifactId>closure-compiler-maven-plugin</artifactId>
       </plugin>
       <plugin>
         <groupId>com.gitlab.haynes</groupId>
