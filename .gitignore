@@ -38,5 +38,6 @@ buildNumber.properties
 # VS Code
 .classpath
 .project
-.settings
+.settings/
 .factorypath
+.vscode/
