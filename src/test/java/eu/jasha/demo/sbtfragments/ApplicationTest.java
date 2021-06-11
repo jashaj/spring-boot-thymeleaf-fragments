@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class)
@@ -33,7 +33,7 @@ class ApplicationTest {
 
     @Test
     void shouldStartSpringContext() {
-        assertNotNull(cityDao);
+        assertThat(cityDao).isNotNull();
     }
 
 }
