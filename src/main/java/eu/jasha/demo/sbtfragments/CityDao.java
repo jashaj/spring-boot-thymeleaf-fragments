@@ -16,20 +16,15 @@
 
 package eu.jasha.demo.sbtfragments;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
+
+import java.util.*;
 
 @Repository
 public class CityDao {
 
-  private Set<City> cities = new HashSet<>();
+  private final Set<City> cities = new HashSet<>();
 
   public Optional<City> find(String id) {
     return cities
