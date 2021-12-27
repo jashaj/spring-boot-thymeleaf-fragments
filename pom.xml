@@ -51,7 +51,7 @@
     <thymeleaf-layout-dialect.version>3.0.0</thymeleaf-layout-dialect.version>
     <thymeleaf-with-dialect.version>3.0.1</thymeleaf-with-dialect.version>
 
-    <libsass-maven-plugin.version>0.2.26</libsass-maven-plugin.version>
+    <libsass-maven-plugin.version>0.2.27</libsass-maven-plugin.version>
   </properties>
 
   <dependencies>
