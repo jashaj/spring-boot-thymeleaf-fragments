@@ -48,7 +48,7 @@
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
 
-    <thymeleaf-layout-dialect.version>3.0.0</thymeleaf-layout-dialect.version>
+    <thymeleaf-layout-dialect.version>3.1.0</thymeleaf-layout-dialect.version>
     <thymeleaf-with-dialect.version>3.0.1</thymeleaf-with-dialect.version>
 
     <libsass-maven-plugin.version>0.2.28</libsass-maven-plugin.version>
