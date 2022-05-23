@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--/*
-    Copyright 2016-2019 Jasha Joachimsthal
+    Copyright 2016-2022 Jasha Joachimsthal
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -33,11 +33,13 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label" th:for="foundedIn">Founded in</label>
-                        <input class="form-control" th:field="*{foundedIn}" type="number" step="1"/>
+                        <input class="form-control" th:field="*{foundedIn}" type="number" step="1"
+                               min="-2147483648" max="2147483647"/>
                     </div>
                     <div class="form-group">
                         <label class="control-label" th:for="population">Population</label>
-                        <input class="form-control" th:field="*{population}" type="number" step="1" min="0"/>
+                        <input class="form-control" th:field="*{population}" type="number" step="1"
+                               min="0" max="2147483647"/>
                     </div>
                     <div class="form-group submit-cancel">
                         <input class="btn btn-primary" type="submit" value="Save changes"/>
