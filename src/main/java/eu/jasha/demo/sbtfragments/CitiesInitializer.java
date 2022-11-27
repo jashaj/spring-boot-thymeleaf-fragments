@@ -16,19 +16,17 @@
 
 package eu.jasha.demo.sbtfragments;
 
-import java.io.InputStream;
-import java.util.List;
-
-import javax.annotation.Resource;
-
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import eu.jasha.demo.sbtfragments.config.ProjectProperties;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import eu.jasha.demo.sbtfragments.config.ProjectProperties;
+import java.io.InputStream;
+import java.util.List;
 
 @Configuration
 @EnableConfigurationProperties(ProjectProperties.class)
