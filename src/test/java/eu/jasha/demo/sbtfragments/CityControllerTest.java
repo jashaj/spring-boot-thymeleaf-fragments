@@ -16,22 +16,6 @@
 
 package eu.jasha.demo.sbtfragments;
 
-import static eu.jasha.demo.sbtfragments.CityController.FRAGMENT_FORM;
-import static eu.jasha.demo.sbtfragments.CityController.MODEL_ATTRIBUTE_CITIES;
-import static eu.jasha.demo.sbtfragments.CityController.MODEL_ATTRIBUTE_CITY;
-import static eu.jasha.demo.sbtfragments.CityController.SECTION_CITIES;
-import static eu.jasha.demo.sbtfragments.CityController.VIEW_CITIES;
-import static eu.jasha.demo.sbtfragments.CityController.VIEW_CITY_DELETE;
-import static eu.jasha.demo.sbtfragments.CityController.VIEW_CITY_FORM;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,6 +24,14 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import static eu.jasha.demo.sbtfragments.CityController.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class CityControllerTest {
@@ -67,7 +59,7 @@ class CityControllerTest {
     String view = controller.overview(modelMap);
 
     assertThat(view).isEqualTo(VIEW_CITIES);
-    assertThat(modelMap.get(MODEL_ATTRIBUTE_CITIES)).isEqualTo(cityList);
+    assertThat(modelMap).containsEntry(MODEL_ATTRIBUTE_CITIES, cityList);
   }
 
   @Test
@@ -77,7 +69,7 @@ class CityControllerTest {
     String view = controller.showUpdateCityPage(CITY_ID, modelMap);
 
     assertThat(view).isEqualTo(VIEW_CITY_FORM);
-    assertThat(modelMap.get(MODEL_ATTRIBUTE_CITY)).isEqualTo(city);
+    assertThat(modelMap).containsEntry(MODEL_ATTRIBUTE_CITY, city);
   }
 
   @Test
@@ -87,7 +79,7 @@ class CityControllerTest {
     String view = controller.showUpdateCityForm(CITY_ID, modelMap);
 
     assertThat(view).isEqualTo(VIEW_CITY_FORM + FRAGMENT_FORM);
-    assertThat(modelMap.get(MODEL_ATTRIBUTE_CITY)).isEqualTo(city);
+    assertThat(modelMap).containsEntry(MODEL_ATTRIBUTE_CITY, city);
   }
 
   @Test
@@ -149,7 +141,7 @@ class CityControllerTest {
     String view = controller.showDeleteCityPage(CITY_ID, modelMap);
 
     assertThat(view).isEqualTo(VIEW_CITY_DELETE);
-    assertThat(modelMap.get(MODEL_ATTRIBUTE_CITY)).isEqualTo(city);
+    assertThat(modelMap).containsEntry(MODEL_ATTRIBUTE_CITY, city);
   }
 
   @Test
@@ -159,7 +151,7 @@ class CityControllerTest {
     String view = controller.showDeleteCityForm(CITY_ID, modelMap);
 
     assertThat(view).isEqualTo(VIEW_CITY_DELETE + FRAGMENT_FORM);
-    assertThat(modelMap.get(MODEL_ATTRIBUTE_CITY)).isEqualTo(city);
+    assertThat(modelMap).containsEntry(MODEL_ATTRIBUTE_CITY, city);
   }
 
   @Test
