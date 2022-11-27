@@ -149,22 +149,22 @@
         </plugin>
 
         <plugin>
-          <groupId>com.gitlab.haynes</groupId>
-          <artifactId>libsass-maven-plugin</artifactId>
-          <version>${libsass-maven-plugin.version}</version>
+          <groupId>io.github.cleydyr</groupId>
+          <artifactId>dart-sass-maven-plugin</artifactId>
+          <version>0.3.0</version>
           <executions>
             <execution>
+              <id>generate-css-using-sass</id>
               <phase>generate-resources</phase>
               <goals>
-                <goal>compile</goal>
+                <goal>compile-sass</goal>
               </goals>
             </execution>
           </executions>
           <configuration>
-            <inputPath>${basedir}/src/main/sass/</inputPath>
-            <outputPath>${project.build.directory}/classes/static</outputPath>
-            <outputStyle>compressed</outputStyle>
-            <generateSourceMap>false</generateSourceMap>
+            <outputFolder>${project.build.directory}/classes/static</outputFolder>
+            <style>COMPRESSED</style>
+            <noSourceMap>true</noSourceMap>
           </configuration>
         </plugin>
       </plugins>
@@ -180,8 +180,8 @@
         <artifactId>closure-compiler-maven-plugin</artifactId>
       </plugin>
       <plugin>
-        <groupId>com.gitlab.haynes</groupId>
-        <artifactId>libsass-maven-plugin</artifactId>
+        <groupId>io.github.cleydyr</groupId>
+        <artifactId>dart-sass-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </build>
