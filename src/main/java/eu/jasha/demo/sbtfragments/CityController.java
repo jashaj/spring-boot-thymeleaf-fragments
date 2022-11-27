@@ -31,7 +31,7 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 @Slf4j
 @Controller
-@RequestMapping("cities")
+@RequestMapping({"cities", "cities/"})
 public class CityController {
 
   static final String VIEW_CITIES = "pages/cities";
@@ -42,7 +42,7 @@ public class CityController {
   static final String FRAGMENT_FORM = " :: form";
   static final String SECTION_CITIES = "cities";
   private static final String ID = "id";
-  private static final String PATH_ID = "/{id}";
+  private static final String PATH_ID = "/{id}"; // NOSONAR
   private static final String X_REQUESTED_WITH_XML_HTTP_REQUEST = "X-Requested-With=XMLHttpRequest";
 
   @Resource
