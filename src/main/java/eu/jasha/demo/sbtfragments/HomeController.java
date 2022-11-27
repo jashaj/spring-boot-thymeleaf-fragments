@@ -24,7 +24,7 @@ public class HomeController {
 
   static final String VIEW_INDEX = "pages/index";
 
-  @GetMapping(value = "")
+  @GetMapping(value = "/")
   public String getHome() {
     return VIEW_INDEX;
   }
