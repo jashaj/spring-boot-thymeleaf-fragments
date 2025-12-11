@@ -128,7 +128,7 @@
         <plugin>
           <groupId>com.github.blutorange</groupId>
           <artifactId>closure-compiler-maven-plugin</artifactId>
-          <version>2.32.0</version>
+          <version>3.0.0</version>
           <configuration>
             <baseSourceDir>${project.basedir}/src/main</baseSourceDir>
             <baseTargetDir>${project.build.directory}/generated-resources</baseTargetDir>
